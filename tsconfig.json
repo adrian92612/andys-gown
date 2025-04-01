@@ -20,15 +20,15 @@
     ],
     "paths": {
       "@/*": ["./src/*"]
-    },
-    "types": ["next-auth"]
+    }
   },
   "include": [
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src"
+    "src",
+    "src/types/env.d.ts"
   ],
   "exclude": ["node_modules"]
 }
