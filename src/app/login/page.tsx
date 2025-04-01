@@ -1,15 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import { LoginForm } from "@/components/app/login/LoginForm";
 
 const LoginPage = () => {
   return (
-    <div>
-      <form className="max-w-96 flex flex-col">
-        <Input placeholder="Username" />
-        <Input type="passowrd" placeholder="Password" />
-        <Button>Login</Button>
-      </form>
-    </div>
+    <section className="w-full h-dvh grid place-items-center">
+      <LoginForm />
+    </section>
   );
 };
 
