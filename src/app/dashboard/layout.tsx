@@ -1,10 +1,10 @@
-import { LogoutButton } from "@/components/app/dashboard/LogoutButton";
+import { Sidebar } from "@/components/app/dashboard/sidebar/Sidebar";
 
-const DashboardLayout = ({ children }: { children: React.ReactNode }) => {
+const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   return (
-    <div>
-      <LogoutButton />
-      {children}
+    <div className="flex h-dvh">
+      <Sidebar />
+      <main className="flex-1 overflow-y-auto p-4">{children}</main>
     </div>
   );
 };

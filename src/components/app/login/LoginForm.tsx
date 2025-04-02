@@ -10,6 +10,7 @@ import { useState } from "react";
 import { api } from "@/lib/api";
 import { ErrorType } from "@/lib/api/apiClient";
 import { useRouter } from "next/navigation";
+import { route } from "@/lib/routes";
 
 export const LoginForm = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -26,7 +27,7 @@ export const LoginForm = () => {
     try {
       setLoading(true);
       await api.auth.login.post(values);
-      replace("/dashboard");
+      replace(route.dashboard);
       refresh();
     } catch (error) {
       const err = error as ErrorType;
