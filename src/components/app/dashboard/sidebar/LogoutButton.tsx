@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { api } from "@/lib/api";
 import { ErrorType } from "@/lib/api/apiClient";
+import { route } from "@/lib/routes";
 import { useRouter } from "next/navigation";
 
 export const LogoutButton = () => {
@@ -10,7 +11,7 @@ export const LogoutButton = () => {
   const handleLogout = async () => {
     try {
       await api.auth.logout.post();
-      replace("/login");
+      replace(route.login);
       refresh();
     } catch (error) {
       const err = error as ErrorType;
