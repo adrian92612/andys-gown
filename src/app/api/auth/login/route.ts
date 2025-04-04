@@ -25,7 +25,7 @@ export async function POST(req: NextRequest) {
     }
 
     const token = await generateToken({ id: user.id, name: user.name });
-    const res = successResponse(undefined, "Login successful!");
+    const res = successResponse(null, "Login successful!");
     setAuthCookies(res, token);
     return res;
   } catch (error) {

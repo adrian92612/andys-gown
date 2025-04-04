@@ -5,4 +5,5 @@ export const route = {
   dashboard: "/dashboard/overview",
   gowns: "/dashboard/gowns",
   bookings: "/dashboard/bookings",
+  newGown: "/dashboard/gowns/new",
 };

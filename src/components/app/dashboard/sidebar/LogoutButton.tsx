@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { api } from "@/lib/api";
-import { ErrorType } from "@/lib/api/apiClient";
+import { ErrorResponse } from "@/lib/api/types";
 import { route } from "@/lib/routes";
 import { useRouter } from "next/navigation";
 
@@ -14,8 +14,8 @@ export const LogoutButton = () => {
       replace(route.login);
       refresh();
     } catch (error) {
-      const err = error as ErrorType;
-      console.log(err);
+      const err = error as ErrorResponse;
+      console.error(err);
     }
   };
 
