@@ -27,7 +27,7 @@ model Gown {
   color     String
   size      String
   price     Int
-  imagesUrl String[]
+  images    Image[]
   bookings  Booking[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
@@ -50,4 +50,13 @@ model Booking {
   returnDate          DateTime
   createdAt           DateTime @default(now())
   updatedAt           DateTime @updatedAt
+}
+
+model Image {
+  id        String   @id @default(uuid())
+  url       String
+  publicId  String
+  gownId    String
+  gown      Gown     @relation(fields: [gownId], references: [id])
+  createdAt DateTime @default(now())
 }

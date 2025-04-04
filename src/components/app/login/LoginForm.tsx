@@ -4,13 +4,13 @@ import { Form } from "@/components/ui/form";
 import { LoginSchemaType, loginSchema } from "@/lib/zod/auth";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormTextField } from "@/components/ui/FormTextField";
+import { FormInputField } from "@/components/ui/FormInputField";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { api } from "@/lib/api";
-import { ErrorType } from "@/lib/api/apiClient";
 import { useRouter } from "next/navigation";
 import { route } from "@/lib/routes";
+import { ErrorResponse } from "@/lib/api/types";
 
 export const LoginForm = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -30,10 +30,8 @@ export const LoginForm = () => {
       replace(route.dashboard);
       refresh();
     } catch (error) {
-      const err = error as ErrorType;
-      if (err.status === 400 || err.status === 401) {
-        console.log(err.error);
-      }
+      const err = error as ErrorResponse;
+      console.error("login error: ", err.error);
     } finally {
       setLoading(false);
     }
@@ -44,15 +42,13 @@ export const LoginForm = () => {
         onSubmit={form.handleSubmit(handleOnSubmit)}
         className="flex flex-col gap-2 w-10/12 max-w-96"
       >
-        <FormTextField
-          form={form}
+        <FormInputField
           name="username"
           placeholder="Username"
           loading={loading}
         />
 
-        <FormTextField
-          form={form}
+        <FormInputField
           name="password"
           placeholder="Password"
           type="password"
