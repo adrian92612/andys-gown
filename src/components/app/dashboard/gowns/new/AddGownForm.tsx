@@ -21,6 +21,7 @@ import { CldUploadWidget } from "next-cloudinary";
 import Image from "next/image";
 import { useState } from "react";
 import { api } from "@/lib/api";
+import { useRouter } from "next/navigation";
 
 type Props = {
   gownData?: CreateGownSchemaType;
@@ -35,18 +36,28 @@ export const AddGownForm = ({ gownData }: Props) => {
       name: gownData?.name ?? "",
       color: gownData?.color ?? "",
       size: gownData?.size ?? "",
-      price: gownData?.price ?? 0,
+      price: gownData?.price ?? 800,
       images: gownData?.images ?? [],
     },
   });
 
+  const { refresh } = useRouter();
+
   const images = form.watch("images") ?? [];
 
   const handleOnSubmit = async (values: CreateGownSchemaType) => {
-    const res = await api.gown.createGown.post(values);
-    if (res.status === 201) {
-      // do something
-      form.reset();
+    try {
+      setLoading(true);
+      const res = await api.gown.createGown.post(values);
+      if (res.status === 201) {
+        // do something
+        form.reset();
+        refresh();
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
