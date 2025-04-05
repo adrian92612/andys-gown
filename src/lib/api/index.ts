@@ -10,6 +10,8 @@ export const api = {
   },
   gown: {
     createGown: createPostEndpoint<CreateGownSchemaType, Gown>("/api/gowns"),
+    deleteGown: (gownId: string) =>
+      createDeleteEndpoint(`/api/gowns/${gownId}`),
   },
   cloudinary: {
     deleteImage: (publicId: string) =>

@@ -10,6 +10,7 @@ const GownsPage = async () => {
     include: { images: true },
     orderBy: { createdAt: "desc" },
   });
+
   return (
     <section className="w-full space-y-4">
       <div className="flex justify-end">

@@ -1,18 +1,12 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { Prisma } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { ArrowUpDown } from "lucide-react";
 import Image from "next/image";
-import { IoMdMore } from "react-icons/io";
+import { TableMoreActions } from "./TableMoreActions";
 
 type GownWithImage = Prisma.GownGetPayload<{ include: { images: true } }>;
 
@@ -45,7 +39,11 @@ export const gownColumns: ColumnDef<GownWithImage>[] = [
   {
     accessorKey: "name",
     header: ({ column }) => (
-      <Button variant="ghost" onClick={() => column.toggleSorting()}>
+      <Button
+        variant="columnHeader"
+        size="columnHeader"
+        onClick={() => column.toggleSorting()}
+      >
         Name <ArrowUpDown className="ml-2 size-4" />
       </Button>
     ),
@@ -53,7 +51,11 @@ export const gownColumns: ColumnDef<GownWithImage>[] = [
   {
     accessorKey: "color",
     header: ({ column }) => (
-      <Button variant="ghost" onClick={() => column.toggleSorting()}>
+      <Button
+        variant="columnHeader"
+        size="columnHeader"
+        onClick={() => column.toggleSorting()}
+      >
         Color <ArrowUpDown className="ml-2 size-4" />
       </Button>
     ),
@@ -61,7 +63,11 @@ export const gownColumns: ColumnDef<GownWithImage>[] = [
   {
     accessorKey: "size",
     header: ({ column }) => (
-      <Button variant="ghost" onClick={() => column.toggleSorting()}>
+      <Button
+        variant="columnHeader"
+        size="columnHeader"
+        onClick={() => column.toggleSorting()}
+      >
         Size <ArrowUpDown className="ml-2 size-4" />
       </Button>
     ),
@@ -69,7 +75,11 @@ export const gownColumns: ColumnDef<GownWithImage>[] = [
   {
     accessorKey: "price",
     header: ({ column }) => (
-      <Button variant="ghost" onClick={() => column.toggleSorting()}>
+      <Button
+        variant="columnHeader"
+        size="columnHeader"
+        onClick={() => column.toggleSorting()}
+      >
         Price <ArrowUpDown className="ml-2 size-4" />
       </Button>
     ),
@@ -82,7 +92,11 @@ export const gownColumns: ColumnDef<GownWithImage>[] = [
     accessorFn: (row) => format(row.createdAt, "MMM dd yyyy h:mm a"),
     id: "createdAtFormatted",
     header: ({ column }) => (
-      <Button variant="ghost" onClick={() => column.toggleSorting()}>
+      <Button
+        variant="columnHeader"
+        size="columnHeader"
+        onClick={() => column.toggleSorting()}
+      >
         Added On <ArrowUpDown className="ml-2 size-4" />
       </Button>
     ),
@@ -92,7 +106,11 @@ export const gownColumns: ColumnDef<GownWithImage>[] = [
     accessorFn: (row) => format(row.updatedAt, "MMM dd yyyy h:mm a"),
     id: "updatedAtFormatted",
     header: ({ column }) => (
-      <Button variant="ghost" onClick={() => column.toggleSorting()}>
+      <Button
+        variant="columnHeader"
+        size="columnHeader"
+        onClick={() => column.toggleSorting()}
+      >
         Updated On <ArrowUpDown className="ml-2 size-4" />
       </Button>
     ),
@@ -100,20 +118,10 @@ export const gownColumns: ColumnDef<GownWithImage>[] = [
   },
   {
     id: "actions",
-    cell: () => {
+    cell: ({ row }) => {
       return (
         <div className="w-8">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost">
-                <IoMdMore className="size-8" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem>Delete</DropdownMenuItem>
-              <DropdownMenuItem>Edit</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <TableMoreActions gownData={row.original} />
         </div>
       );
     },
