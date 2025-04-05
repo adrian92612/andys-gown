@@ -57,6 +57,6 @@ model Image {
   url       String
   publicId  String
   gownId    String
-  gown      Gown     @relation(fields: [gownId], references: [id])
+  gown      Gown     @relation(fields: [gownId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 }
