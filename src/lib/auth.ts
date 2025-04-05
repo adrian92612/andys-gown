@@ -1,6 +1,7 @@
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { SignJWT, jwtVerify } from "jose";
+import { RequestCookies } from "next/dist/compiled/@edge-runtime/cookies";
 
 type TokenPayload = {
   id: string;
@@ -41,8 +42,10 @@ export const clearAuthCookies = (res: NextResponse) => {
   });
 };
 
-export const getCurrentUser = async (): Promise<TokenPayload | null> => {
-  const cookieStore = await cookies();
+export const getCurrentUser = async (
+  reqCookies?: RequestCookies
+): Promise<TokenPayload | null> => {
+  const cookieStore = reqCookies ?? (await cookies());
   const token = cookieStore.get("token")?.value;
 
   if (!token) return null;
