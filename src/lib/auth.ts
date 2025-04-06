@@ -2,6 +2,7 @@ import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 import { SignJWT, jwtVerify } from "jose";
 import { RequestCookies } from "next/dist/compiled/@edge-runtime/cookies";
+import { errorResponse } from "./api/responses";
 
 type TokenPayload = {
   id: string;
@@ -55,4 +56,10 @@ export const getCurrentUser = async (
     console.error("[GET_CURRENT_USER_ERROR]: ", error);
     return null;
   }
+};
+
+export const requireAdmin = async () => {
+  const user = await getCurrentUser();
+  if (!user) return errorResponse("Unauthorized access.", 401);
+  return null;
 };

@@ -13,7 +13,7 @@ export const Sidebar = () => {
   return (
     <aside
       className={cn(
-        "flex flex-col justify-between items-center px-4 py-10 border-r-2 overflow-hidden",
+        "hidden md:flex flex-col justify-between items-center px-4 py-10 border-r-2 overflow-hidden",
         !open && "w-10 px-0"
       )}
     >

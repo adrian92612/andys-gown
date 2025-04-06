@@ -18,7 +18,7 @@ export const fetcher = async <T>(
     const errorBody = await res.json().catch(() => {});
     throw {
       error: errorBody?.error || "API Error",
-      status: errorBody.status,
+      status: errorBody.status || res.status,
     } satisfies ErrorResponse;
   }
 
@@ -30,6 +30,23 @@ export const createPostEndpoint = <TBody, TResponse = unknown>(url: string) => {
     post: (body?: TBody | FormData) =>
       fetcher<TResponse>(url, {
         method: "POST",
+        body:
+          body instanceof FormData
+            ? body
+            : body
+            ? JSON.stringify(body)
+            : undefined,
+      }),
+  };
+};
+
+export const createPatchEndpoint = <TBody, TResponse = unknown>(
+  url: string
+) => {
+  return {
+    patch: (body?: TBody | FormData) =>
+      fetcher<TResponse>(url, {
+        method: "PATCH",
         body:
           body instanceof FormData
             ? body

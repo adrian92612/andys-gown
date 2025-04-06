@@ -1,19 +1,19 @@
 import { errorResponse, successResponse } from "@/lib/api/responses";
-import { getCurrentUser } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth";
 import cloudinary from "@/lib/cloudinary";
 import { prisma } from "@/lib/prisma";
+import { gownSchema } from "@/lib/zod/gown";
+import { NextRequest } from "next/server";
 
 export async function DELETE(
-  _: Request,
+  _: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id } = await params;
-    const user = await getCurrentUser();
+    const authErr = await requireAdmin();
+    if (authErr) return authErr;
 
-    if (user?.name !== "Andreana Abad") {
-      return errorResponse("Unauthorized Access", 401);
-    }
+    const { id } = await params;
 
     const gown = await prisma.gown.findUnique({
       where: { id },
@@ -39,6 +39,65 @@ export async function DELETE(
     return successResponse(null, "Gown has been deleted.");
   } catch (error) {
     console.error("[GOWN_DELETION:ERROR]: ", error);
+    return errorResponse();
+  }
+}
+
+export async function PATCH(req: NextRequest) {
+  try {
+    const authErr = await requireAdmin();
+    if (authErr) return authErr;
+
+    const body = await req.json();
+    const parsed = gownSchema.safeParse(body);
+
+    if (!parsed.success) {
+      return errorResponse("Invalid data.", 400);
+    }
+
+    const gownData = parsed.data;
+
+    if (!gownData.id) {
+      return errorResponse("Missing ID", 400);
+    }
+
+    const existingGown = await prisma.gown.findUnique({
+      where: { id: gownData.id },
+      include: { images: true },
+    });
+
+    if (!existingGown) {
+      return errorResponse("Gown not found.", 404);
+    }
+
+    const oldPublicIds = existingGown.images.map((img) => img.publicId);
+    const newPublicIds = gownData.images.map((img) => img.publicId);
+    const imagesToAdd = gownData.images.filter(
+      (img) => !oldPublicIds.includes(img.publicId)
+    );
+    const imagesToDelete = existingGown.images.filter(
+      (img) => !newPublicIds.includes(img.publicId)
+    );
+
+    const updatedGown = await prisma.gown.update({
+      where: { id: gownData.id },
+      include: { images: true },
+      data: {
+        ...gownData,
+        images: {
+          deleteMany: {
+            publicId: {
+              in: imagesToDelete.map((img) => img.publicId),
+            },
+          },
+          create: imagesToAdd,
+        },
+      },
+    });
+
+    return successResponse(updatedGown, "Gown has been updated.");
+  } catch (error) {
+    console.error("[GOWN_UPDATING_FAILED]: ", error);
     return errorResponse();
   }
 }

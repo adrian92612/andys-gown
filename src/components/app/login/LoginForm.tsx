@@ -4,7 +4,7 @@ import { Form } from "@/components/ui/form";
 import { LoginSchemaType, loginSchema } from "@/lib/zod/auth";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormInputField } from "@/components/ui/FormInputField";
+import { FormInputField } from "@/components/ui/InputField";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { api } from "@/lib/api";

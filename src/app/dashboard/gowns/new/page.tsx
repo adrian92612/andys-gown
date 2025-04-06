@@ -1,9 +1,9 @@
-import { AddGownForm } from "@/components/app/dashboard/gowns/new/AddGownForm";
+import { GownForm } from "@/components/app/dashboard/gowns/GownForm";
 
 const NewGownPage = () => {
   return (
     <section>
-      <AddGownForm />
+      <GownForm />
     </section>
   );
 };
