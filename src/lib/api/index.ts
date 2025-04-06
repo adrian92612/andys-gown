@@ -1,20 +1,33 @@
-import { Gown, User } from "@prisma/client";
+import { Booking, Gown, User } from "@prisma/client";
 import { LoginSchemaType } from "../zod/auth";
-import { createDeleteEndpoint, createPostEndpoint } from "./apiClient";
-import { CreateGownSchemaType } from "../zod/gown";
+import {
+  createDeleteEndpoint,
+  createPatchEndpoint,
+  createPostEndpoint,
+} from "./apiClient";
+import { GownSchemaType } from "../zod/gown";
+import { BookingSchemaType } from "../zod/booking";
+import { apiRoute } from "../routes";
 
 export const api = {
   auth: {
-    login: createPostEndpoint<LoginSchemaType, User>("/api/auth/login"),
-    logout: createPostEndpoint("/api/auth/logout"),
+    login: createPostEndpoint<LoginSchemaType, User>(apiRoute.auth.login),
+    logout: createPostEndpoint(apiRoute.auth.logout),
   },
   gown: {
-    createGown: createPostEndpoint<CreateGownSchemaType, Gown>("/api/gowns"),
+    createGown: createPostEndpoint<GownSchemaType, Gown>(apiRoute.gown.base),
+    updateGown: (gownId: string) =>
+      createPatchEndpoint(apiRoute.gown.update(gownId)),
     deleteGown: (gownId: string) =>
-      createDeleteEndpoint(`/api/gowns/${gownId}`),
+      createDeleteEndpoint(apiRoute.gown.delete(gownId)),
+  },
+  booking: {
+    createBooking: createPostEndpoint<BookingSchemaType, Booking>(
+      apiRoute.booking.base
+    ),
   },
   cloudinary: {
     deleteImage: (publicId: string) =>
-      createDeleteEndpoint(`/api/cloudinary-image?publicId=${publicId}`),
+      createDeleteEndpoint(apiRoute.image.delete(publicId)),
   },
 };

@@ -16,4 +16,4 @@ export const gownSchema = z.object({
     .min(1, "At least one image is required"),
 });
 
-export type CreateGownSchemaType = z.infer<typeof gownSchema>;
+export type GownSchemaType = z.infer<typeof gownSchema>;

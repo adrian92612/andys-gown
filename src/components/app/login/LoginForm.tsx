@@ -4,7 +4,7 @@ import { Form } from "@/components/ui/form";
 import { LoginSchemaType, loginSchema } from "@/lib/zod/auth";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FormInputField } from "@/components/ui/FormInputField";
+import { InputField } from "@/components/ui/InputField";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { api } from "@/lib/api";
@@ -38,24 +38,16 @@ export const LoginForm = () => {
   };
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(handleOnSubmit)}
-        className="flex flex-col gap-2 w-10/12 max-w-96"
-      >
-        <FormInputField
-          name="username"
-          placeholder="Username"
-          loading={loading}
-        />
-
-        <FormInputField
-          name="password"
-          placeholder="Password"
-          type="password"
-          loading={loading}
-        />
-        <Button disabled={loading}>Login</Button>
-      </form>
+      <fieldset disabled={loading}>
+        <form
+          onSubmit={form.handleSubmit(handleOnSubmit)}
+          className="flex flex-col gap-2 w-10/12 max-w-96"
+        >
+          <InputField form={form} name="username" placeholder="Username" />
+          <InputField form={form} name="password" placeholder="Password" />
+          <Button>Login</Button>
+        </form>
+      </fieldset>
     </Form>
   );
 };

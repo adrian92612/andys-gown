@@ -20,7 +20,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { api } from "@/lib/api";
 import { ErrorResponse } from "@/lib/api/types";
+import { route } from "@/lib/routes";
 import { Prisma } from "@prisma/client";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoMdMore } from "react-icons/io";
@@ -33,7 +35,7 @@ export const TableMoreActions = ({ gownData }: Props) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="ghost" className="hover:cursor-pointer">
+        <Button variant="ghost">
           <IoMdMore className="size-8" />
         </Button>
       </DropdownMenuTrigger>
@@ -41,7 +43,13 @@ export const TableMoreActions = ({ gownData }: Props) => {
         <DropdownMenuItem asChild>
           <ConfirmDeleteAlert id={gownData.id} />
         </DropdownMenuItem>
-        <DropdownMenuItem>Edit</DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href={route.editGown(gownData.id)}>
+            <Button variant="ghost" className="w-full">
+              Edit
+            </Button>
+          </Link>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
@@ -73,11 +81,7 @@ const ConfirmDeleteAlert = ({ id }: ConfirmDeleteAlertProps) => {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button
-          variant="ghost"
-          disabled={loading}
-          className="w-full hover:cursor-pointer"
-        >
+        <Button variant="ghost" disabled={loading} className="w-full">
           Delete
         </Button>
       </AlertDialogTrigger>
