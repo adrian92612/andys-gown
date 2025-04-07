@@ -3,17 +3,22 @@ import { requireAdmin } from "@/lib/auth";
 import cloudinary from "@/lib/cloudinary";
 import { prisma } from "@/lib/prisma";
 import { gownSchema } from "@/lib/zod/gown";
+import { Prisma } from "@prisma/client";
 import { NextRequest } from "next/server";
 
-export async function DELETE(
-  _: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
-) {
+type Params = {
+  params: Promise<{ id: string }>;
+};
+
+export async function DELETE(_: NextRequest, { params }: Params) {
   try {
     const authErr = await requireAdmin();
     if (authErr) return authErr;
 
     const { id } = await params;
+    if (!id) {
+      return errorResponse("No ID found.", 400);
+    }
 
     const gown = await prisma.gown.findUnique({
       where: { id },
@@ -26,7 +31,17 @@ export async function DELETE(
 
     const publicIds = gown.images.map((img) => img.publicId);
 
-    await prisma.gown.delete({ where: { id } });
+    try {
+      await prisma.gown.delete({ where: { id } });
+    } catch (error) {
+      if (
+        error instanceof Prisma.PrismaClientKnownRequestError &&
+        error.code === "P2025"
+      ) {
+        return errorResponse("Gown already deleted.", 404);
+      }
+      throw error;
+    }
 
     await Promise.all(
       publicIds.map((id) =>

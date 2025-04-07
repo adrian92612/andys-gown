@@ -7,6 +7,7 @@ import { format } from "date-fns";
 import { ArrowUpDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { TableMoreActions } from "../TableMoreActions";
+import { cn } from "@/lib/utils";
 
 export type BookingWithGownName = Prisma.BookingGetPayload<{
   include: { gown: { select: { name: true } } };
@@ -26,7 +27,7 @@ export const bookingColumns: ColumnDef<BookingWithGownName>[] = [
     ),
   },
   {
-    accessorFn: (row) => row.gown.name,
+    accessorFn: (row) => row.gown?.name ?? "deleted",
     id: "gown",
     header: ({ column }) => (
       <Button
@@ -37,6 +38,14 @@ export const bookingColumns: ColumnDef<BookingWithGownName>[] = [
         Gown <ArrowUpDown className="ml-2 size-4" />
       </Button>
     ),
+    cell: ({ row }) => {
+      const gownName = row.original.gown?.name;
+      return (
+        <span className={cn(!gownName && "text-red-700 italic")}>
+          {gownName ?? "Deleted"}
+        </span>
+      );
+    },
     enableGlobalFilter: true,
   },
   {

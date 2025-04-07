@@ -35,8 +35,8 @@ model Gown {
 
 model Booking {
   id                  String   @id @default(uuid())
-  gownId              String
-  gown                Gown     @relation(fields: [gownId], references: [id])
+  gownId              String?
+  gown                Gown?    @relation(fields: [gownId], references: [id], onDelete: SetNull)
   customerName        String
   customerAddress     String
   customerContactInfo String

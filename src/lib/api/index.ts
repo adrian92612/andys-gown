@@ -25,6 +25,8 @@ export const api = {
     createBooking: createPostEndpoint<BookingSchemaType, Booking>(
       apiRoute.booking.base
     ),
+    deleteBooking: (bookingId: string) =>
+      createDeleteEndpoint(apiRoute.booking.delete(bookingId)),
   },
   cloudinary: {
     deleteImage: (publicId: string) =>

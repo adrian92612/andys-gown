@@ -45,7 +45,7 @@ export const TableMoreActions = ({ data }: Props) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem asChild>
-          <ConfirmDeleteAlert id={data.id} />
+          <ConfirmDeleteAlert id={data.id} forGown={isGown} />
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link href={link(data.id)}>
@@ -61,16 +61,18 @@ export const TableMoreActions = ({ data }: Props) => {
 
 type ConfirmDeleteAlertProps = {
   id: string;
+  forGown?: boolean;
 };
 
-const ConfirmDeleteAlert = ({ id }: ConfirmDeleteAlertProps) => {
+const ConfirmDeleteAlert = ({ id, forGown }: ConfirmDeleteAlertProps) => {
   const [loading, setLoading] = useState<boolean>(false);
   const { refresh } = useRouter();
+  const apiCb = forGown ? api.gown.deleteGown : api.booking.deleteBooking;
 
   const deleteFn = async () => {
     try {
       setLoading(true);
-      const res = await api.gown.deleteGown(id).delete();
+      const res = await apiCb(id).delete();
       if (res.status === 200) {
         refresh();
         // do something
