@@ -68,7 +68,7 @@ export const BookingForm = ({ bookingData, gownList, bookingDates }: Props) => {
       customerName: bookingData?.customerName ?? "",
       customerAddress: bookingData?.customerAddress ?? "",
       customerContactInfo: bookingData?.customerContactInfo ?? "",
-      notes: bookingData?.notes,
+      notes: bookingData?.notes ?? "",
       price: bookingData?.price ?? 800,
       isPricePaid: bookingData?.isPricePaid ?? false,
       downpayment: bookingData?.downpayment ?? 500,

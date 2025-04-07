@@ -44,7 +44,12 @@ export const LoginForm = () => {
           className="flex flex-col gap-2 w-10/12 max-w-96"
         >
           <InputField form={form} name="username" placeholder="Username" />
-          <InputField form={form} name="password" placeholder="Password" />
+          <InputField
+            form={form}
+            name="password"
+            type="password"
+            placeholder="Password"
+          />
           <Button>Login</Button>
         </form>
       </fieldset>

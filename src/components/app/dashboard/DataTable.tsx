@@ -28,7 +28,7 @@ type Props<TData, TValue> = {
   data: TData[];
 };
 
-export const GownDataTable = <TData, TValue>({
+export const DataTable = <TData, TValue>({
   columns,
   data,
 }: Props<TData, TValue>) => {
