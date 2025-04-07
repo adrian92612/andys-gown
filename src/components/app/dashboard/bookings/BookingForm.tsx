@@ -80,7 +80,10 @@ export const BookingForm = ({ bookingData, gownList, bookingDates }: Props) => {
   const handleOnSubmit = async (values: BookingSchemaType) => {
     try {
       setLoading(true);
-      const res = await api.booking.createBooking.post(values);
+      const apiCB = values.id
+        ? api.booking.updateBooking(values.id).patch(values)
+        : api.booking.createBooking.post(values);
+      const res = await apiCB;
 
       if (res.status === 201 || res.status === 200) {
         refresh();
@@ -166,9 +169,9 @@ export const BookingForm = ({ bookingData, gownList, bookingDates }: Props) => {
                             !field.value && "text-muted-foreground"
                           )}
                         >
-                          {selectedGown
-                            ? selectedGown.name
-                            : "Gown no longer exists"}
+                          {field.value === ""
+                            ? "Select a gown"
+                            : selectedGown?.name ?? "Gown no longer exists"}
                           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                         </Button>
                       </FormControl>

@@ -8,6 +8,9 @@ import Link from "next/link";
 const BookingsPage = async () => {
   const bookings = await prisma.booking.findMany({
     include: { gown: { select: { name: true } } },
+    orderBy: {
+      eventDate: "desc",
+    },
   });
 
   return (

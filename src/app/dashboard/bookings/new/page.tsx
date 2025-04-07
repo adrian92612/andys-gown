@@ -1,31 +1,9 @@
 import { BookingForm } from "@/components/app/dashboard/bookings/BookingForm";
-import { prisma } from "@/lib/prisma";
+import { getBookingDates, getGownListForForm } from "@/lib/actions";
 
 const AddBookingPage = async () => {
-  const gownList = await prisma.gown.findMany({
-    select: { id: true, name: true },
-    orderBy: { name: "asc" },
-  });
-
-  const bookingDates = (await prisma.booking.findMany({
-    where: {
-      returnDate: {
-        gte: new Date(),
-      },
-      gownId: { not: null },
-    },
-    select: {
-      gownId: true,
-      pickUpDate: true,
-      eventDate: true,
-      returnDate: true,
-    },
-  })) as {
-    gownId: string;
-    pickUpDate: Date;
-    eventDate: Date;
-    returnDate: Date;
-  }[];
+  const gownList = await getGownListForForm();
+  const bookingDates = await getBookingDates();
 
   return (
     <div>

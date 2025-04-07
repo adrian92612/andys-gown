@@ -25,6 +25,8 @@ export const api = {
     createBooking: createPostEndpoint<BookingSchemaType, Booking>(
       apiRoute.booking.base
     ),
+    updateBooking: (bookingId: string) =>
+      createPatchEndpoint(apiRoute.booking.delete(bookingId)),
     deleteBooking: (bookingId: string) =>
       createDeleteEndpoint(apiRoute.booking.delete(bookingId)),
   },
