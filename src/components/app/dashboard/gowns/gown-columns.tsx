@@ -6,9 +6,11 @@ import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 import { ArrowUpDown } from "lucide-react";
 import Image from "next/image";
-import { TableMoreActions } from "./TableMoreActions";
+import { TableMoreActions } from "../TableMoreActions";
 
-type GownWithImage = Prisma.GownGetPayload<{ include: { images: true } }>;
+export type GownWithImage = Prisma.GownGetPayload<{
+  include: { images: true };
+}>;
 
 export const gownColumns: ColumnDef<GownWithImage>[] = [
   {
@@ -85,7 +87,7 @@ export const gownColumns: ColumnDef<GownWithImage>[] = [
     ),
     cell: ({ row }) => {
       const price = row.getValue("price") as number;
-      return price.toLocaleString();
+      return `₱${price.toLocaleString()}`;
     },
   },
   {
@@ -121,7 +123,7 @@ export const gownColumns: ColumnDef<GownWithImage>[] = [
     cell: ({ row }) => {
       return (
         <div className="w-8">
-          <TableMoreActions gownData={row.original} />
+          <TableMoreActions data={row.original} />
         </div>
       );
     },

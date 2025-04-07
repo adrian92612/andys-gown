@@ -1,5 +1,5 @@
+import { DataTable } from "@/components/app/dashboard/DataTable";
 import { gownColumns } from "@/components/app/dashboard/gowns/gown-columns";
-import { GownDataTable } from "@/components/app/dashboard/gowns/GownDataTable";
 import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
 import { route } from "@/lib/routes";
@@ -18,7 +18,7 @@ const GownsPage = async () => {
           <Button>Add Gown</Button>
         </Link>
       </div>
-      <GownDataTable columns={gownColumns} data={gowns} />
+      <DataTable columns={gownColumns} data={gowns} />
     </section>
   );
 };

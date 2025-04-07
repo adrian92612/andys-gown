@@ -6,7 +6,9 @@ export const route = {
   gowns: "/dashboard/gowns",
   bookings: "/dashboard/bookings",
   newGown: "/dashboard/gowns/new",
+  newBooking: "/dashboard/bookings/new",
   editGown: (id: string) => `/dashboard/gowns/${id}/edit`,
+  editBooking: (id: string) => `/dashboard/bookings/${id}/edit`,
 };
 
 export const apiRoute = {

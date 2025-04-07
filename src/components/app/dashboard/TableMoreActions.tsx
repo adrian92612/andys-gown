@@ -21,17 +21,21 @@ import {
 import { api } from "@/lib/api";
 import { ErrorResponse } from "@/lib/api/types";
 import { route } from "@/lib/routes";
-import { Prisma } from "@prisma/client";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { IoMdMore } from "react-icons/io";
+import { BookingWithGownName } from "./bookings/booking-columns";
+import { GownWithImage } from "./gowns/gown-columns";
 
 type Props = {
-  gownData: Prisma.GownGetPayload<{ include: { images: true } }>;
+  data: GownWithImage | BookingWithGownName;
 };
 
-export const TableMoreActions = ({ gownData }: Props) => {
+export const TableMoreActions = ({ data }: Props) => {
+  const isGown = "size" in data;
+  const link = isGown ? route.editGown : route.editBooking;
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -41,10 +45,10 @@ export const TableMoreActions = ({ gownData }: Props) => {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuItem asChild>
-          <ConfirmDeleteAlert id={gownData.id} />
+          <ConfirmDeleteAlert id={data.id} />
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={route.editGown(gownData.id)}>
+          <Link href={link(data.id)}>
             <Button variant="ghost" className="w-full">
               Edit
             </Button>
