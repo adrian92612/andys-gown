@@ -7,11 +7,12 @@ const AddBookingPage = async () => {
     orderBy: { name: "asc" },
   });
 
-  const bookingDates = await prisma.booking.findMany({
+  const bookingDates = (await prisma.booking.findMany({
     where: {
       returnDate: {
         gte: new Date(),
       },
+      gownId: { not: null },
     },
     select: {
       gownId: true,
@@ -19,7 +20,13 @@ const AddBookingPage = async () => {
       eventDate: true,
       returnDate: true,
     },
-  });
+  })) as {
+    gownId: string;
+    pickUpDate: Date;
+    eventDate: Date;
+    returnDate: Date;
+  }[];
+
   return (
     <div>
       AddBookingPage
