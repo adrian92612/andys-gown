@@ -1,8 +1,8 @@
 import { errorResponse, successResponse } from "@/lib/api/responses";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { getPickUpAndReturnDates } from "@/lib/utils";
 import { bookingSchema } from "@/lib/zod/booking";
-import { addDays } from "date-fns";
 import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -18,8 +18,7 @@ export async function POST(req: NextRequest) {
     }
 
     const { eventDate, ...bookingData } = parsed.data;
-    const pickUpDate = addDays(eventDate, -1);
-    const returnDate = addDays(eventDate, 1);
+    const { pickUpDate, returnDate } = getPickUpAndReturnDates(eventDate);
 
     const existingGown = await prisma.gown.findUnique({
       where: { id: bookingData.gownId },
