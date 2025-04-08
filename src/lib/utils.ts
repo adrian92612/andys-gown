@@ -29,3 +29,24 @@ export function getPickUpAndReturnDates(eventDate: Date) {
     returnDate: addDays(eventDate, 1),
   };
 }
+
+export function capitalizeFirst(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export function formatPrice(n: number) {
+  return n.toLocaleString("en-PH", {
+    style: "currency",
+    currency: "PHP",
+    maximumFractionDigits: 0,
+  });
+}
+
+export function getBookingStatus(eventDate: Date) {
+  const today = new Date();
+  return eventDate < today
+    ? "Completed"
+    : eventDate > today
+    ? "Upcoming"
+    : "Ongoing";
+}
