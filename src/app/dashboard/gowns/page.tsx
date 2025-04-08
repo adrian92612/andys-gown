@@ -1,9 +1,8 @@
 import { DataTable } from "@/components/app/dashboard/DataTable";
+import { LinkButton } from "@/components/app/dashboard/LinkButton";
 import { gownColumns } from "@/components/app/dashboard/gowns/gown-columns";
-import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
 import { route } from "@/lib/routes";
-import Link from "next/link";
 
 const GownsPage = async () => {
   const gowns = await prisma.gown.findMany({
@@ -14,9 +13,7 @@ const GownsPage = async () => {
   return (
     <section className="w-full space-y-4">
       <div className="flex justify-end">
-        <Link href={route.newGown} className="ml-auto">
-          <Button>Add Gown</Button>
-        </Link>
+        <LinkButton label="Add Gown" href={route.newGown} />
       </div>
       <DataTable columns={gownColumns} data={gowns} />
     </section>

@@ -1,9 +1,7 @@
-import { bookingColumns } from "@/components/app/dashboard/bookings/booking-columns";
-import { DataTable } from "@/components/app/dashboard/DataTable";
-import { Button } from "@/components/ui/button";
+import { LinkButton } from "@/components/app/dashboard/LinkButton";
+import { BookingsTable } from "@/components/app/dashboard/bookings/BookingsTable";
 import { prisma } from "@/lib/prisma";
 import { route } from "@/lib/routes";
-import Link from "next/link";
 
 const BookingsPage = async () => {
   const bookings = await prisma.booking.findMany({
@@ -15,12 +13,10 @@ const BookingsPage = async () => {
 
   return (
     <div>
-      <div className="flex justify-end">
-        <Link href={route.newBooking} className="ml-auto">
-          <Button>Add Booking</Button>
-        </Link>
+      <div className="flex justify-end items-center">
+        <LinkButton label="Add Booking" href={route.newBooking} />
       </div>
-      <DataTable data={bookings} columns={bookingColumns} />
+      <BookingsTable bookings={bookings} />
     </div>
   );
 };
