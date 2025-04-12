@@ -10,27 +10,50 @@ type Props = {
   label: string;
   href: string;
   currentPath: string;
+  icon: React.ReactNode;
+  onClick?: () => void;
 };
 
-export const SidebarLink = ({ label, href, currentPath }: Props) => {
+export const SidebarLink = ({
+  label,
+  href,
+  currentPath,
+  icon,
+  onClick,
+}: Props) => {
   const isActive = currentPath.startsWith(href);
 
   return (
     <li>
       <Link href={href}>
-        <Button variant="ghost" className={cn(isActive && "bg-amber-300")}>
-          {label}
+        <Button
+          variant="ghost"
+          className={cn(
+            "w-full rounded-none justify-start gap-4 font-semibold text-lg",
+            isActive && "bg-amber-300"
+          )}
+          onClick={onClick}
+        >
+          {icon} {label}
         </Button>
       </Link>
     </li>
   );
 };
 
-export const SidebarNav = () => {
+type SidebarNavProps = {
+  forMobile?: boolean;
+  closeSheet?: () => void;
+};
+
+export const SidebarNav = ({
+  forMobile = false,
+  closeSheet,
+}: SidebarNavProps) => {
   const currentPath = usePathname();
 
   return (
-    <nav>
+    <nav className={cn(forMobile && "pt-10")}>
       <ul>
         {links &&
           !!links.length &&
@@ -39,7 +62,9 @@ export const SidebarNav = () => {
               key={idx}
               label={i.label}
               href={i.href}
+              icon={i.icon}
               currentPath={currentPath}
+              onClick={closeSheet}
             />
           ))}
       </ul>
