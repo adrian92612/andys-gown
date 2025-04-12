@@ -113,14 +113,8 @@ export const getBookingColumns = (options?: {
         </Button>
       ),
       cell: ({ row }) => {
-        const status = getBookingStatus(row.original.eventDate);
-        const bgColor =
-          status === "Completed"
-            ? "bg-green-700"
-            : status === "Ongoing"
-            ? "bg-gray-700"
-            : "bg-amber-700";
-        return <Badge className={bgColor}>{status}</Badge>;
+        const { status, badgeColor } = getBookingStatus(row.original.eventDate);
+        return <Badge className={badgeColor}>{status}</Badge>;
       },
     },
 

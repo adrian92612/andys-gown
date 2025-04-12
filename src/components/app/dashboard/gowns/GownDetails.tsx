@@ -9,6 +9,8 @@ import { PhotoSlider } from "react-photo-view";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { FaBackwardStep, FaForwardStep } from "react-icons/fa6";
+import { InfoField } from "@/components/global/InfoField";
+import { Badge } from "@/components/ui/badge";
 
 type DetailsFieldProps = {
   gownDetails: Gown;
@@ -39,20 +41,18 @@ const getValue = (v: unknown) => {
 
 const DetailsField = ({ gownDetails, dates }: DetailsFieldProps) => {
   const detailsArr = Object.entries(gownDetails);
+  const { status, badgeColor } = getGownStatus(dates);
   return (
     <div className="px-5 max-w-[500px]">
-      <div className="flex gap-2 text-lg">
-        <span className="font-semibold">Status:</span>
-        <span>{getGownStatus(dates)}</span>
-      </div>
+      <InfoField
+        label="Status"
+        value={<Badge className={badgeColor}>{status}</Badge>}
+      />
       {!!detailsArr.length &&
         detailsArr
           .filter(([k]) => !EXCLUDED_FIELDS.includes(k))
           .map(([k, v], i) => (
-            <div key={i} className="flex gap-2 text-lg">
-              <span className="font-semibold">{getLabel(k)}:</span>
-              <span className="text-wrap">{getValue(v)}</span>
-            </div>
+            <InfoField key={i} label={getLabel(k)} value={getValue(v)} />
           ))}
     </div>
   );
