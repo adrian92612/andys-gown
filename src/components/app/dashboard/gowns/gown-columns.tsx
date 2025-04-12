@@ -7,12 +7,18 @@ import { format } from "date-fns";
 import { ArrowUpDown } from "lucide-react";
 import Image from "next/image";
 import { TableMoreActions } from "../TableMoreActions";
+import { getGownStatus } from "@/lib/utils";
 
-export type GownWithImage = Prisma.GownGetPayload<{
-  include: { images: true };
+export type GownColumnType = Prisma.GownGetPayload<{
+  include: {
+    images: true;
+    bookings: {
+      select: { pickUpDate: true; eventDate: true; returnDate: true };
+    };
+  };
 }>;
 
-export const gownColumns: ColumnDef<GownWithImage>[] = [
+export const gownColumns: ColumnDef<GownColumnType>[] = [
   {
     accessorKey: "images",
     header: "Image",
@@ -51,6 +57,18 @@ export const gownColumns: ColumnDef<GownWithImage>[] = [
     ),
   },
   {
+    accessorKey: "code",
+    header: ({ column }) => (
+      <Button
+        variant="columnHeader"
+        size="columnHeader"
+        onClick={() => column.toggleSorting()}
+      >
+        Code <ArrowUpDown className="ml-2 size-4" />
+      </Button>
+    ),
+  },
+  {
     accessorKey: "color",
     header: ({ column }) => (
       <Button
@@ -62,18 +80,7 @@ export const gownColumns: ColumnDef<GownWithImage>[] = [
       </Button>
     ),
   },
-  {
-    accessorKey: "size",
-    header: ({ column }) => (
-      <Button
-        variant="columnHeader"
-        size="columnHeader"
-        onClick={() => column.toggleSorting()}
-      >
-        Size <ArrowUpDown className="ml-2 size-4" />
-      </Button>
-    ),
-  },
+
   {
     accessorKey: "price",
     header: ({ column }) => (
@@ -91,7 +98,7 @@ export const gownColumns: ColumnDef<GownWithImage>[] = [
     },
   },
   {
-    accessorFn: (row) => format(row.createdAt, "MMM dd yyyy h:mm a"),
+    accessorFn: (row) => getGownStatus(row.bookings),
     id: "createdAtFormatted",
     header: ({ column }) => (
       <Button
@@ -99,13 +106,13 @@ export const gownColumns: ColumnDef<GownWithImage>[] = [
         size="columnHeader"
         onClick={() => column.toggleSorting()}
       >
-        Added On <ArrowUpDown className="ml-2 size-4" />
+        Status <ArrowUpDown className="ml-2 size-4" />
       </Button>
     ),
     enableGlobalFilter: true,
   },
   {
-    accessorFn: (row) => format(row.updatedAt, "MMM dd yyyy h:mm a"),
+    accessorFn: (row) => format(row.updatedAt, "PPP"),
     id: "updatedAtFormatted",
     header: ({ column }) => (
       <Button

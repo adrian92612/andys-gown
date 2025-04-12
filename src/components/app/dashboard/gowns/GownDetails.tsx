@@ -1,6 +1,6 @@
 "use client";
 
-import { capitalizeFirst, cn } from "@/lib/utils";
+import { capitalizeFirst, cn, getGownStatus } from "@/lib/utils";
 import { Gown, Prisma } from "@prisma/client";
 import { format } from "date-fns";
 import Image from "next/image";
@@ -12,6 +12,11 @@ import { FaBackwardStep, FaForwardStep } from "react-icons/fa6";
 
 type DetailsFieldProps = {
   gownDetails: Gown;
+  dates: {
+    pickUpDate: Date;
+    eventDate: Date;
+    returnDate: Date;
+  }[];
 };
 
 const EXCLUDED_FIELDS = ["id"];
@@ -32,17 +37,21 @@ const getValue = (v: unknown) => {
     : String(v);
 };
 
-const DetailsField = ({ gownDetails }: DetailsFieldProps) => {
+const DetailsField = ({ gownDetails, dates }: DetailsFieldProps) => {
   const detailsArr = Object.entries(gownDetails);
   return (
-    <div>
+    <div className="px-5 max-w-[500px]">
+      <div className="flex gap-2 text-lg">
+        <span className="font-semibold">Status:</span>
+        <span>{getGownStatus(dates)}</span>
+      </div>
       {!!detailsArr.length &&
         detailsArr
           .filter(([k]) => !EXCLUDED_FIELDS.includes(k))
           .map(([k, v], i) => (
-            <div key={i} className="flex items-center gap-2 text-lg">
+            <div key={i} className="flex gap-2 text-lg">
               <span className="font-semibold">{getLabel(k)}:</span>
-              <span>{getValue(v)}</span>
+              <span className="text-wrap">{getValue(v)}</span>
             </div>
           ))}
     </div>
@@ -86,7 +95,7 @@ const ImagesField = ({ urls }: ImagesFieldProps) => {
   };
 
   return (
-    <div className="p-5 h-[450px] rounded-md bg-slate-100">
+    <div className="p-5 h-[420px] w-[350px] sm:w-[500px] sm:h-[300px] md:w-[350px] md:h-[430px] xl:w-[500px] xl:h-[300px]  rounded-md mx-auto bg-slate-100">
       <PhotoSlider
         images={urls.map((u) => ({
           src: u.url,
@@ -167,19 +176,23 @@ type Props = {
 export const GownDetails = ({ gownData }: Props) => {
   const { bookings, images, ...gownDetails } = gownData;
 
+  const dates = bookings.map((b) => ({
+    pickUpDate: b.pickUpDate,
+    eventDate: b.eventDate,
+    returnDate: b.returnDate,
+  }));
+
   return (
     <div className="space-y-8">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
         <section>
           <ImagesField urls={images} />
         </section>
         <section className="w-full">
-          <h2 className="text-2xl font-bold">Gown Details</h2>
-          <DetailsField gownDetails={gownDetails} />
+          <DetailsField gownDetails={gownDetails} dates={dates} />
         </section>
       </div>
       <section>
-        <h2 className="text-2xl font-bold">Related Bookings</h2>
         <BookingsTable bookings={bookings} showGown={false} />
       </section>
     </div>

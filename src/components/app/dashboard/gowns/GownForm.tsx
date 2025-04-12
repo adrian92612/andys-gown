@@ -35,7 +35,7 @@ export const GownForm = ({ gownData }: Props) => {
       id: gownData?.id ?? undefined,
       name: gownData?.name ?? "",
       color: gownData?.color ?? "",
-      size: gownData?.size ?? "",
+      code: gownData?.code ?? "",
       price: gownData?.price ?? 800,
       images: gownData?.images ?? [],
     },
@@ -46,7 +46,6 @@ export const GownForm = ({ gownData }: Props) => {
   const images = form.watch("images") ?? [];
 
   const handleOnSubmit = async (values: GownSchemaType) => {
-    console.log(values);
     try {
       setLoading(true);
       const apiCB = values.id
@@ -84,8 +83,8 @@ export const GownForm = ({ gownData }: Props) => {
         <form onSubmit={form.handleSubmit(handleOnSubmit)}>
           <InputField form={form} name="id" readOnly type="hidden" />
           <InputField form={form} name="name" label="Name" />
+          <InputField form={form} name="code" label="Code" />
           <InputField form={form} name="color" label="Color" />
-          <InputField form={form} name="size" label="Size" />
           <InputField
             form={form}
             name="price"
