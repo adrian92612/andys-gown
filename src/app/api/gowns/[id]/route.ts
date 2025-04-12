@@ -2,8 +2,10 @@ import { errorResponse, successResponse } from "@/lib/api/responses";
 import { requireAdmin } from "@/lib/auth";
 import cloudinary from "@/lib/cloudinary";
 import { prisma } from "@/lib/prisma";
+import { route } from "@/lib/routes";
 import { gownSchema } from "@/lib/zod/gown";
 import { Prisma } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
 
 type Params = {
@@ -51,6 +53,7 @@ export async function DELETE(_: NextRequest, { params }: Params) {
       )
     );
 
+    revalidatePath(route.gowns);
     return successResponse(null, "Gown has been deleted.");
   } catch (error) {
     console.error("[GOWN_DELETION:ERROR]: ", error);
@@ -110,6 +113,7 @@ export async function PATCH(req: NextRequest) {
       },
     });
 
+    revalidatePath(route.gowns);
     return successResponse(updatedGown, "Gown has been updated.");
   } catch (error) {
     console.error("[GOWN_UPDATING_FAILED]: ", error);
