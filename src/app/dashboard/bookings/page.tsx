@@ -14,7 +14,7 @@ const BookingsPage = async () => {
   return (
     <div>
       <div className="flex justify-end items-center">
-        <LinkButton label="Add Booking" href={route.newBooking} />
+        <LinkButton label="Add Booking" href={route.newBooking()} icon="add" />
       </div>
       <BookingsTable bookings={bookings} />
     </div>

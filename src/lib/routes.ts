@@ -6,7 +6,7 @@ export const route = {
   gowns: "/dashboard/gowns",
   bookings: "/dashboard/bookings",
   newGown: "/dashboard/gowns/new",
-  newBooking: "/dashboard/bookings/new",
+  newBooking: (gownId?: string) => `/dashboard/bookings/new?gown=${gownId}`,
   editGown: (id: string) => `/dashboard/gowns/${id}/edit`,
   editBooking: (id: string) => `/dashboard/bookings/${id}/edit`,
   gownDetails: (id: string) => `/dashboard/gowns/${id}`,

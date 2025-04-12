@@ -18,6 +18,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ButtonVariantProps } from "@/types/global";
 import { MdOutlineDeleteForever } from "react-icons/md";
+import { toast } from "sonner";
 
 type Props = {
   itemId: string;
@@ -46,12 +47,13 @@ export const DeleteButton = ({
       setLoading(true);
       const res = await apiCb(itemId).delete();
       if (res.status === 200) {
-        if (redirectUrl) push(redirectUrl);
+        toast.success(res.message);
         refresh();
-        // do something
+        if (redirectUrl) push(redirectUrl);
       }
     } catch (error) {
       const err = error as ErrorResponse;
+      toast.error(err.error);
       console.error(err);
     } finally {
       setLoading(false);

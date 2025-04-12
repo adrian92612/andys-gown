@@ -23,7 +23,7 @@ const GownsPage = async () => {
   return (
     <section className="w-full space-y-4">
       <div className="flex justify-end">
-        <LinkButton label="Add Gown" href={route.newGown} />
+        <LinkButton label="Add Gown" href={route.newGown} icon="add" />
       </div>
       <DataTable columns={gownColumns} data={gowns} />
     </section>

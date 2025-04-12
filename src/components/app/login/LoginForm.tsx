@@ -11,6 +11,7 @@ import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { route } from "@/lib/routes";
 import { ErrorResponse } from "@/lib/api/types";
+import { toast } from "sonner";
 
 export const LoginForm = () => {
   const [loading, setLoading] = useState<boolean>(false);
@@ -21,17 +22,20 @@ export const LoginForm = () => {
       password: "",
     },
   });
-  const { replace, refresh } = useRouter();
+  const { replace } = useRouter();
 
   const handleOnSubmit = async (values: LoginSchemaType) => {
     try {
       setLoading(true);
-      await api.auth.login.post(values);
-      replace(route.dashboard);
-      refresh();
+      const res = await api.auth.login.post(values);
+      if (res.status === 200) {
+        toast.success(res.message);
+        replace(route.dashboard);
+      }
     } catch (error) {
       const err = error as ErrorResponse;
       console.error("login error: ", err.error);
+      toast.error(err.error);
     } finally {
       setLoading(false);
     }

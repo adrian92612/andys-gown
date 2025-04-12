@@ -33,6 +33,11 @@ const GownDetailsPage = async ({ params }: Props) => {
     <section className="space-y-5">
       <div className="flex justify-end items-center gap-2">
         <LinkButton label="Edit" href={route.editGown(gown.id)} icon="edit" />
+        <LinkButton
+          label="Add Booking"
+          href={route.newBooking(gown.id)}
+          icon="add"
+        />
         <DeleteButton
           item="Gown"
           variant="destructive"

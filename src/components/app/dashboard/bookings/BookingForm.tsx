@@ -28,6 +28,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { api } from "@/lib/api";
+import { ErrorResponse } from "@/lib/api/types";
 import {
   cn,
   restrictWholeNumberInput,
@@ -37,9 +38,10 @@ import { bookingSchema, BookingSchemaType } from "@/lib/zod/booking";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { format, subDays } from "date-fns";
 import { CalendarIcon, Check, ChevronsUpDown } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 type Props = {
   bookingData?: BookingSchemaType;
@@ -59,6 +61,8 @@ export const BookingForm = ({ bookingData, gownList, bookingDates }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
   const [isCalendarOpen, setIsCalendarOpen] = useState<boolean>(false);
   const [isCommandOpen, setIsCommandOpen] = useState<boolean>(false);
+  const searchParams = useSearchParams();
+  const selectedGownId = searchParams.get("gown");
   const { refresh } = useRouter();
   const form = useForm<BookingSchemaType>({
     resolver: zodResolver(bookingSchema),
@@ -87,18 +91,27 @@ export const BookingForm = ({ bookingData, gownList, bookingDates }: Props) => {
 
       if (res.status === 201 || res.status === 200) {
         refresh();
+        toast.success(res.message);
         if (!bookingData) form.reset();
-        // do something
       }
     } catch (error) {
+      const err = error as ErrorResponse;
+      toast(err.error);
       console.error(error);
     } finally {
       setLoading(false);
     }
   };
 
+  useEffect(() => {
+    if (selectedGownId && selectedGownId !== "undefined") {
+      form.setValue("gownId", selectedGownId);
+    }
+  }, [selectedGownId, form]);
+
   const gownId = form.watch("gownId");
   const isGownSelected = !!gownId;
+  console.log(isGownSelected);
   const disabledDates = bookingDates.filter((b) => b.gownId === gownId);
   const bookDates = disabledDates.map((b) => b.eventDate);
 
@@ -148,78 +161,101 @@ export const BookingForm = ({ bookingData, gownList, bookingDates }: Props) => {
             </div>
           </div>
 
-          <FormField
-            control={form.control}
-            name="gownId"
-            render={({ field }) => {
-              const selectedGown = gownList.find((g) => g.id === field.value);
+          {selectedGownId && selectedGownId !== "undefined" ? (
+            <>
+              <InputField
+                form={form}
+                label="Gown"
+                name="gownId"
+                type="hidden"
+              />
+              <InputField
+                form={form}
+                name="gownId"
+                readOnly
+                value={
+                  gownList.find((g) => g.id === selectedGownId)?.name ??
+                  "Gown no longer exists"
+                }
+              />
+            </>
+          ) : (
+            <FormField
+              control={form.control}
+              name="gownId"
+              render={({ field }) => {
+                const selectedGown = gownList.find((g) => g.id === field.value);
 
-              return (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Select a Gown</FormLabel>
-                  <Popover open={isCommandOpen} onOpenChange={setIsCommandOpen}>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          type="button"
-                          variant="outline"
-                          role="combobox"
-                          className={cn(
-                            "w-full justify-between h-10",
-                            !field.value && "text-muted-foreground"
-                          )}
-                        >
-                          {field.value === ""
-                            ? "Select a gown"
-                            : selectedGown?.name ?? "Gown no longer exists"}
-                          <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent
-                      align="start"
-                      className="w-full min-w-full max-w-full p-0"
-                      style={{
-                        minWidth: "var(--radix-popper-anchor-width)",
-                      }}
+                return (
+                  <FormItem className="flex flex-col">
+                    <FormLabel>Select a Gown</FormLabel>
+                    <Popover
+                      open={isCommandOpen}
+                      onOpenChange={setIsCommandOpen}
                     >
-                      <Command>
-                        <CommandInput placeholder="Search gown..." />
-                        <CommandEmpty>No gown found.</CommandEmpty>
-                        <CommandGroup>
-                          {gownList.map((gown) => (
-                            <CommandItem
-                              key={gown.id}
-                              value={gown.id}
-                              onSelect={() => {
-                                field.onChange(gown.id);
-                                form.setValue(
-                                  "eventDate",
-                                  null as unknown as Date
-                                );
-                                setIsCommandOpen(false);
-                              }}
-                            >
-                              <Check
-                                className={cn(
-                                  "mr-2 h-4 w-4",
-                                  gown.id === field.value
-                                    ? "opacity-100"
-                                    : "opacity-0"
-                                )}
-                              />
-                              {gown.name}
-                            </CommandItem>
-                          ))}
-                        </CommandGroup>
-                      </Command>
-                    </PopoverContent>
-                  </Popover>
-                  <FormMessage />
-                </FormItem>
-              );
-            }}
-          />
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            role="combobox"
+                            className={cn(
+                              "w-full justify-between h-10",
+                              !field.value && "text-muted-foreground"
+                            )}
+                          >
+                            {field.value === ""
+                              ? "Select a gown"
+                              : selectedGown?.name ?? "Gown no longer exists"}
+                            <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent
+                        align="start"
+                        className="w-full min-w-full max-w-full p-0"
+                        style={{
+                          minWidth: "var(--radix-popper-anchor-width)",
+                        }}
+                      >
+                        <Command>
+                          <CommandInput placeholder="Search gown..." />
+                          <CommandEmpty>No gown found.</CommandEmpty>
+                          <CommandGroup>
+                            {gownList.map((gown) => (
+                              <CommandItem
+                                key={gown.id}
+                                value={gown.id}
+                                onSelect={() => {
+                                  field.onChange(gown.id);
+                                  form.setValue(
+                                    "eventDate",
+                                    null as unknown as Date
+                                  );
+                                  setIsCommandOpen(false);
+                                }}
+                              >
+                                <Check
+                                  className={cn(
+                                    "mr-2 h-4 w-4",
+                                    gown.id === field.value
+                                      ? "opacity-100"
+                                      : "opacity-0"
+                                  )}
+                                />
+                                {gown.name}
+                              </CommandItem>
+                            ))}
+                          </CommandGroup>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+          )}
 
           <FormField
             control={form.control}
