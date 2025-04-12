@@ -99,7 +99,7 @@ export const gownColumns: ColumnDef<GownColumnType>[] = [
   },
   {
     accessorFn: (row) => getGownStatus(row.bookings),
-    id: "createdAtFormatted",
+    id: "gownStatus",
     header: ({ column }) => (
       <Button
         variant="columnHeader"

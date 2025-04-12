@@ -45,11 +45,20 @@ export function formatPrice(n: number) {
 
 export function getBookingStatus(eventDate: Date) {
   const today = new Date();
-  return eventDate < today
-    ? "Completed"
-    : eventDate > today
-    ? "Upcoming"
-    : "Ongoing";
+  const status =
+    eventDate < today
+      ? "Completed"
+      : eventDate > today
+      ? "Upcoming"
+      : "Ongoing";
+
+  const badgeColor = {
+    Completed: "bg-green-700",
+    Ongoing: "bg-gray-700",
+    Upcoming: "bg-amber-700",
+  }[status];
+
+  return { status, badgeColor };
 }
 
 type GetGownStatusProps = {
@@ -58,13 +67,35 @@ type GetGownStatusProps = {
   returnDate: Date;
 }[];
 
-export function getGownStatus(bookings: GetGownStatusProps): GownStatus {
+export function getGownStatus(bookings: GetGownStatusProps): {
+  status: GownStatus;
+  badgeColor: string;
+} {
   const today = new Date();
 
+  let status: GownStatus = "In Store";
+
   for (const b of bookings) {
-    if (isSameDay(today, b.pickUpDate)) return "For Pick Up";
-    if (isSameDay(today, b.eventDate)) return "On Event";
-    if (isSameDay(today, b.returnDate)) return "For Return";
+    if (isSameDay(today, b.pickUpDate)) {
+      status = "For Pick Up";
+      break;
+    }
+    if (isSameDay(today, b.eventDate)) {
+      status = "On Event";
+      break;
+    }
+    if (isSameDay(today, b.returnDate)) {
+      status = "For Return";
+      break;
+    }
   }
-  return "In Store";
+
+  const badgeColor = {
+    "In Store": "bg-gray-600",
+    "For Pick Up": "bg-amber-500 ",
+    "On Event": "bg-blue-600 ",
+    "For Return": "bg-red-600 ",
+  }[status];
+
+  return { status, badgeColor };
 }
