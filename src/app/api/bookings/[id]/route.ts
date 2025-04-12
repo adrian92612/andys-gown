@@ -73,6 +73,8 @@ export async function PATCH(req: NextRequest) {
         },
       });
       revalidatePath(route.bookings);
+      revalidatePath(route.bookingDetails(updatedBooking.id));
+      revalidatePath(route.editBooking(updatedBooking.id));
       return successResponse(updatedBooking, "Booking has been updated.");
     } catch (error) {
       if (

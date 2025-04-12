@@ -25,6 +25,7 @@ export async function POST(req: NextRequest) {
     });
 
     revalidatePath(route.gowns);
+    revalidatePath(route.gownDetails(gown.id));
     return successResponse(gown, "Gown has been created successfully.", 201);
   } catch (error) {
     console.error("[CREATE_GOWN_ERROR]: ", error);

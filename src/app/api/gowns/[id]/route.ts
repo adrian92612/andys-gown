@@ -114,6 +114,8 @@ export async function PATCH(req: NextRequest) {
     });
 
     revalidatePath(route.gowns);
+    revalidatePath(route.gownDetails(updatedGown.id));
+    revalidatePath(route.editGown(updatedGown.id));
     return successResponse(updatedGown, "Gown has been updated.");
   } catch (error) {
     console.error("[GOWN_UPDATING_FAILED]: ", error);

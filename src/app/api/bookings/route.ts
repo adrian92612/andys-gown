@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
     });
 
     revalidatePath(route.bookings);
+    revalidatePath(route.bookingDetails(booking.id));
     return successResponse(booking, "Event has been booked.", 201);
   } catch (error) {
     console.error("[BOOKING_CREATION_FAILED]: ", error);
