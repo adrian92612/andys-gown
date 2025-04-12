@@ -6,9 +6,15 @@ import { ErrorResponse } from "@/lib/api/types";
 import { route } from "@/lib/routes";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { MdLogout } from "react-icons/md";
 import { toast } from "sonner";
 
-export const LogoutButton = () => {
+type Props = {
+  sideBarOpen?: boolean;
+  forMobile?: boolean;
+};
+
+export const LogoutButton = ({ sideBarOpen, forMobile }: Props) => {
   const { replace } = useRouter();
   const [loading, setLoading] = useState(false);
   const handleLogout = async () => {
@@ -29,8 +35,8 @@ export const LogoutButton = () => {
   };
 
   return (
-    <Button onClick={handleLogout} disabled={loading}>
-      Logout
+    <Button variant="destructive" onClick={handleLogout} disabled={loading}>
+      {sideBarOpen || forMobile ? "Logout" : <MdLogout />}
     </Button>
   );
 };

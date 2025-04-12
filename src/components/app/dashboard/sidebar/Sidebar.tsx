@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { SidebarNav } from "./SidebarNav";
+import { CiSquareChevRight } from "react-icons/ci";
 
 export const Sidebar = () => {
   const [open, setOpen] = useState<boolean>(true);
@@ -13,15 +14,24 @@ export const Sidebar = () => {
   return (
     <aside
       className={cn(
-        "hidden md:flex flex-col justify-between items-center px-4 py-10 border-r-2 overflow-hidden",
-        !open && "w-10 px-0"
+        "relative hidden md:flex flex-col justify-between items-center px-0 py-16 w-[200px] border-r-2 overflow-hidden transition-all",
+        !open && "w-[50px]"
       )}
     >
-      <div>
-        <Button onClick={handleToggle}>Toggle</Button>
+      <div className="w-full">
+        <Button
+          variant="ghost"
+          onClick={handleToggle}
+          className={cn(
+            "absolute top-2 left-[6px] size-9 transition-all",
+            open && " left-[unset] right-2 rotate-180"
+          )}
+        >
+          <CiSquareChevRight className="size-9" />
+        </Button>
         <SidebarNav />
       </div>
-      <LogoutButton />
+      <LogoutButton sideBarOpen={open} />
     </aside>
   );
 };
