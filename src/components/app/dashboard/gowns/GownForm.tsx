@@ -24,6 +24,7 @@ import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { ErrorResponse } from "@/lib/api/types";
+import { MdOutlineDeleteForever } from "react-icons/md";
 
 type Props = {
   gownData?: GownSchemaType;
@@ -145,17 +146,19 @@ export const GownForm = ({ gownData }: Props) => {
                     )}
                   </CldUploadWidget>
                 </FormControl>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-5">
                   {!!images.length &&
                     images.map((img, i) => (
                       <div key={img.url} className="relative flex h-32 w-24">
                         <Button
                           type="button"
+                          variant="ghost"
+                          size="icon"
                           onClick={() => deletePhoto(img.publicId)}
-                          className="absolute top-0 right-0 z-10"
+                          className="absolute p-0 top-0 right-0 size-6 z-10"
                           disabled={loading}
                         >
-                          CLOSE
+                          <MdOutlineDeleteForever className="size-6" />
                         </Button>
                         <Image
                           src={img.url}
