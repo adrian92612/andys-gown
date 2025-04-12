@@ -3,11 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { Prisma } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
-import { format } from "date-fns";
 import { ArrowUpDown } from "lucide-react";
 import Image from "next/image";
 import { TableMoreActions } from "../TableMoreActions";
 import { getGownStatus } from "@/lib/utils";
+import { Badge } from "@/components/ui/badge";
 
 export type GownColumnType = Prisma.GownGetPayload<{
   include: {
@@ -98,7 +98,7 @@ export const gownColumns: ColumnDef<GownColumnType>[] = [
     },
   },
   {
-    accessorFn: (row) => getGownStatus(row.bookings),
+    accessorFn: (row) => getGownStatus(row.bookings).status,
     id: "gownStatus",
     header: ({ column }) => (
       <Button
@@ -109,20 +109,10 @@ export const gownColumns: ColumnDef<GownColumnType>[] = [
         Status <ArrowUpDown className="ml-2 size-4" />
       </Button>
     ),
-    enableGlobalFilter: true,
-  },
-  {
-    accessorFn: (row) => format(row.updatedAt, "PPP"),
-    id: "updatedAtFormatted",
-    header: ({ column }) => (
-      <Button
-        variant="columnHeader"
-        size="columnHeader"
-        onClick={() => column.toggleSorting()}
-      >
-        Updated On <ArrowUpDown className="ml-2 size-4" />
-      </Button>
-    ),
+    cell: ({ row }) => {
+      const { status, badgeColor } = getGownStatus(row.original.bookings);
+      return <Badge className={badgeColor}>{status}</Badge>;
+    },
     enableGlobalFilter: true,
   },
   {

@@ -5,19 +5,32 @@ import { api } from "@/lib/api";
 import { ErrorResponse } from "@/lib/api/types";
 import { route } from "@/lib/routes";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { toast } from "sonner";
 
 export const LogoutButton = () => {
-  const { replace, refresh } = useRouter();
+  const { replace } = useRouter();
+  const [loading, setLoading] = useState(false);
   const handleLogout = async () => {
     try {
-      await api.auth.logout.post();
-      replace(route.login);
-      refresh();
+      setLoading(true);
+      const res = await api.auth.logout.post();
+      if (res.status === 200) {
+        toast.success(res.message);
+        replace(route.login);
+      }
     } catch (error) {
       const err = error as ErrorResponse;
       console.error(err);
+      toast.error(err.error);
+    } finally {
+      setLoading(false);
     }
   };
 
-  return <Button onClick={handleLogout}>Logout</Button>;
+  return (
+    <Button onClick={handleLogout} disabled={loading}>
+      Logout
+    </Button>
+  );
 };

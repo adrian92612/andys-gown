@@ -11,6 +11,7 @@ import { Button } from "@/components/ui/button";
 import { FaBackwardStep, FaForwardStep } from "react-icons/fa6";
 import { InfoField } from "@/components/global/InfoField";
 import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 type DetailsFieldProps = {
   gownDetails: Gown;
@@ -43,18 +44,25 @@ const DetailsField = ({ gownDetails, dates }: DetailsFieldProps) => {
   const detailsArr = Object.entries(gownDetails);
   const { status, badgeColor } = getGownStatus(dates);
   return (
-    <div className="px-5 max-w-[500px]">
-      <InfoField
-        label="Status"
-        value={<Badge className={badgeColor}>{status}</Badge>}
-      />
-      {!!detailsArr.length &&
-        detailsArr
-          .filter(([k]) => !EXCLUDED_FIELDS.includes(k))
-          .map(([k, v], i) => (
-            <InfoField key={i} label={getLabel(k)} value={getValue(v)} />
-          ))}
-    </div>
+    <Card className="px-5 max-w-[500px]">
+      <CardHeader>
+        <CardTitle className="text-lg font-semibold">
+          Gown Information
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <InfoField
+          label="Status"
+          value={<Badge className={badgeColor}>{status}</Badge>}
+        />
+        {!!detailsArr.length &&
+          detailsArr
+            .filter(([k]) => !EXCLUDED_FIELDS.includes(k))
+            .map(([k, v], i) => (
+              <InfoField key={i} label={getLabel(k)} value={getValue(v)} />
+            ))}
+      </CardContent>
+    </Card>
   );
 };
 

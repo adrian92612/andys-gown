@@ -91,7 +91,7 @@ export function getGownStatus(bookings: GetGownStatusProps): {
   }
 
   const badgeColor = {
-    "In Store": "bg-gray-600",
+    "In Store": "bg-lime-600",
     "For Pick Up": "bg-amber-500 ",
     "On Event": "bg-blue-600 ",
     "For Return": "bg-red-600 ",

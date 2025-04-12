@@ -22,6 +22,8 @@ import Image from "next/image";
 import { useState } from "react";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { ErrorResponse } from "@/lib/api/types";
 
 type Props = {
   gownData?: GownSchemaType;
@@ -53,11 +55,13 @@ export const GownForm = ({ gownData }: Props) => {
         : api.gown.createGown.post(values);
       const res = await apiCB;
       if (res.status === 201 || res.status == 200) {
-        // do something
-        if (!values.id) form.reset();
         refresh();
+        toast.success(res.message);
+        if (!values.id) form.reset();
       }
     } catch (error) {
+      const err = error as ErrorResponse;
+      toast.error(err.error);
       console.error(error);
     } finally {
       setLoading(false);

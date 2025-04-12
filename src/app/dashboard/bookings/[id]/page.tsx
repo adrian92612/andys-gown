@@ -36,10 +36,10 @@ const BookingDetailsPage = async ({ params }: Props) => {
           icon="edit"
         />
         <DeleteButton
-          item="Gown"
+          item="Booking"
           variant="destructive"
           itemId={booking.id}
-          redirectUrl={route.gowns}
+          redirectUrl={route.bookings}
         />
       </div>
       <BookingDetails booking={booking} />
