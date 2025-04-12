@@ -1,5 +1,6 @@
+import { GownStatus } from "@/types/global";
 import { clsx, type ClassValue } from "clsx";
-import { addDays } from "date-fns";
+import { addDays, isSameDay } from "date-fns";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
@@ -49,4 +50,21 @@ export function getBookingStatus(eventDate: Date) {
     : eventDate > today
     ? "Upcoming"
     : "Ongoing";
+}
+
+type GetGownStatusProps = {
+  pickUpDate: Date;
+  eventDate: Date;
+  returnDate: Date;
+}[];
+
+export function getGownStatus(bookings: GetGownStatusProps): GownStatus {
+  const today = new Date();
+
+  for (const b of bookings) {
+    if (isSameDay(today, b.pickUpDate)) return "For Pick Up";
+    if (isSameDay(today, b.eventDate)) return "On Event";
+    if (isSameDay(today, b.returnDate)) return "For Return";
+  }
+  return "In Store";
 }

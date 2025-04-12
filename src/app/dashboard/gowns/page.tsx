@@ -6,7 +6,17 @@ import { route } from "@/lib/routes";
 
 const GownsPage = async () => {
   const gowns = await prisma.gown.findMany({
-    include: { images: true },
+    include: {
+      images: true,
+      bookings: {
+        where: {
+          returnDate: {
+            gte: new Date(),
+          },
+        },
+        select: { pickUpDate: true, eventDate: true, returnDate: true },
+      },
+    },
     orderBy: { createdAt: "desc" },
   });
 

@@ -24,8 +24,8 @@ model User {
 model Gown {
   id        String    @id @default(uuid())
   name      String
+  code      String
   color     String
-  size      String
   price     Int
   images    Image[]
   bookings  Booking[]

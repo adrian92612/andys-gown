@@ -11,17 +11,17 @@ import { route } from "@/lib/routes";
 import { useState } from "react";
 import { IoMdMore } from "react-icons/io";
 import { BookingColumnType } from "./bookings/booking-columns";
-import { GownWithImage } from "./gowns/gown-columns";
+import { GownColumnType } from "./gowns/gown-columns";
 import Link from "next/link";
 import { DeleteButton } from "./DeleteButton";
 
 type Props = {
-  data: GownWithImage | BookingColumnType;
+  data: GownColumnType | BookingColumnType;
 };
 
 export const TableMoreActions = ({ data }: Props) => {
   const [openDD, setOpenDD] = useState<boolean>(false);
-  const item = "size" in data ? "Gown" : "Booking";
+  const item = "code" in data ? "Gown" : "Booking";
   const editLink = item === "Gown" ? route.editGown : route.editBooking;
   const detailsLink =
     item === "Gown" ? route.gownDetails : route.bookingDetails;
@@ -29,7 +29,7 @@ export const TableMoreActions = ({ data }: Props) => {
   const closeDropdown = () => setOpenDD(false);
 
   return (
-    <DropdownMenu open={openDD} onOpenChange={setOpenDD}>
+    <DropdownMenu open={openDD} onOpenChange={setOpenDD} modal={false}>
       <DropdownMenuTrigger asChild>
         <Button variant="ghost">
           <IoMdMore className="size-8" />

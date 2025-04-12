@@ -4,7 +4,7 @@ export const gownSchema = z.object({
   id: z.string().optional(),
   name: z.string().trim().min(1, "Name is required"),
   color: z.string().trim().min(1, "Color is required"),
-  size: z.string().trim().min(1, "Size is required"),
+  code: z.string().trim().min(1, "Code is required"),
   price: z.coerce.number().int().gt(0, "Price must be greater than 0"),
   images: z
     .array(
