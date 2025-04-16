@@ -69,10 +69,10 @@ export const GownForm = ({ gownData }: Props) => {
     }
   };
 
-  const deletePhoto = async (publicId: string) => {
+  const deletePhoto = async (publicId: string, gownId:string = '') => {
     try {
       setLoading(true);
-      await api.cloudinary.deleteImage(publicId).delete();
+      await api.cloudinary.deleteImage(publicId,gownId).delete();
       const newImages = images.filter((img) => img.publicId !== publicId);
       form.setValue("images", newImages);
     } catch (error) {
@@ -154,7 +154,7 @@ export const GownForm = ({ gownData }: Props) => {
                           type="button"
                           variant="ghost"
                           size="icon"
-                          onClick={() => deletePhoto(img.publicId)}
+                          onClick={() => deletePhoto(img.publicId,gownData?.id)}
                           className="absolute p-0 top-0 right-0 size-6 z-10"
                           disabled={loading}
                         >

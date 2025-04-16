@@ -1,11 +1,10 @@
+import { revalidateBookingPaths, revalidateGownPaths, revalidateStaticPaths } from "@/lib/actions";
 import { errorResponse, successResponse } from "@/lib/api/responses";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
-import { route } from "@/lib/routes";
 import { getPickUpAndReturnDates } from "@/lib/utils";
 import { bookingSchema } from "@/lib/zod/booking";
 import { Prisma } from "@prisma/client";
-import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
 
 type Params = {
@@ -21,6 +20,9 @@ export async function DELETE(_: NextRequest, { params }: Params) {
     if (!id) {
       return errorResponse("No ID found.", 400);
     }
+    const booking = await prisma.booking.findUnique({
+      where: {id},select: {gownId:true}
+    })
 
     try {
       await prisma.booking.delete({
@@ -36,7 +38,8 @@ export async function DELETE(_: NextRequest, { params }: Params) {
       throw error;
     }
 
-    revalidatePath(route.bookings);
+    revalidateStaticPaths()
+    revalidateGownPaths(booking?.gownId??'')
     return successResponse(null, "Booking has been deleted.");
   } catch (error) {
     console.error("[BOOKING_DELETION_FAILED]: ", error);
@@ -72,9 +75,11 @@ export async function PATCH(req: NextRequest) {
           returnDate,
         },
       });
-      revalidatePath(route.bookings);
-      revalidatePath(route.bookingDetails(updatedBooking.id));
-      revalidatePath(route.editBooking(updatedBooking.id));
+
+      revalidateStaticPaths()
+      revalidateBookingPaths(updatedBooking.id)
+      revalidateGownPaths(data.gownId)
+      
       return successResponse(updatedBooking, "Booking has been updated.");
     } catch (error) {
       if (

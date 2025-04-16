@@ -1,3 +1,8 @@
+import {
+  revalidateBookingPaths,
+  revalidateGownPaths,
+  revalidateStaticPaths,
+} from "@/lib/actions";
 import { errorResponse, successResponse } from "@/lib/api/responses";
 import { requireAdmin } from "@/lib/auth";
 import cloudinary from "@/lib/cloudinary";
@@ -24,7 +29,7 @@ export async function DELETE(_: NextRequest, { params }: Params) {
 
     const gown = await prisma.gown.findUnique({
       where: { id },
-      include: { images: true },
+      include: { images: true, bookings: { select: { id: true } } },
     });
 
     if (!gown) {
@@ -54,6 +59,10 @@ export async function DELETE(_: NextRequest, { params }: Params) {
     );
 
     revalidatePath(route.gowns);
+    revalidateStaticPaths();
+    revalidateGownPaths(gown.id);
+    gown.bookings.map((b) => revalidateBookingPaths(b.id));
+
     return successResponse(null, "Gown has been deleted.");
   } catch (error) {
     console.error("[GOWN_DELETION:ERROR]: ", error);
@@ -99,7 +108,7 @@ export async function PATCH(req: NextRequest) {
 
     const updatedGown = await prisma.gown.update({
       where: { id: gownData.id },
-      include: { images: true },
+      include: { images: true, bookings: { select: { id: true } } },
       data: {
         ...gownData,
         images: {
@@ -113,9 +122,10 @@ export async function PATCH(req: NextRequest) {
       },
     });
 
-    revalidatePath(route.gowns);
-    revalidatePath(route.gownDetails(updatedGown.id));
-    revalidatePath(route.editGown(updatedGown.id));
+    revalidateStaticPaths();
+    revalidateGownPaths(updatedGown.id);
+    updatedGown.bookings.map((b) => revalidateBookingPaths(b.id));
+
     return successResponse(updatedGown, "Gown has been updated.");
   } catch (error) {
     console.error("[GOWN_UPDATING_FAILED]: ", error);

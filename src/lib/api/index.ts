@@ -26,12 +26,12 @@ export const api = {
       apiRoute.booking.base
     ),
     updateBooking: (bookingId: string) =>
-      createPatchEndpoint(apiRoute.booking.delete(bookingId)),
+      createPatchEndpoint(apiRoute.booking.update(bookingId)),
     deleteBooking: (bookingId: string) =>
       createDeleteEndpoint(apiRoute.booking.delete(bookingId)),
   },
   cloudinary: {
-    deleteImage: (publicId: string) =>
-      createDeleteEndpoint(apiRoute.image.delete(publicId)),
+    deleteImage: (publicId: string,gownId:string) =>
+      createDeleteEndpoint(apiRoute.image.delete(publicId,gownId)),
   },
 };
