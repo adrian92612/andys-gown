@@ -225,7 +225,7 @@ export const BookingForm = ({ bookingData, gownList, bookingDates }: Props) => {
                             {gownList.map((gown) => (
                               <CommandItem
                                 key={gown.id}
-                                value={gown.id}
+                                value={gown.name}
                                 onSelect={() => {
                                   field.onChange(gown.id);
                                   form.setValue(

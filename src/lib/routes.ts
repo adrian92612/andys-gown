@@ -6,11 +6,14 @@ export const route = {
   gowns: "/dashboard/gowns",
   bookings: "/dashboard/bookings",
   newGown: "/dashboard/gowns/new",
-  newBooking: (gownId?: string) => `/dashboard/bookings/new?gown=${gownId}`,
-  editGown: (id: string) => `/dashboard/gowns/${id}/edit`,
-  editBooking: (id: string) => `/dashboard/bookings/${id}/edit`,
-  gownDetails: (id: string) => `/dashboard/gowns/${id}`,
-  bookingDetails: (id: string) => `/dashboard/bookings/${id}`,
+  newBooking: (gownId?: string) =>
+    gownId
+      ? `/dashboard/bookings/new?gown=${gownId}`
+      : "/dashboard/bookings/new",
+  editGown: (gownId: string) => `/dashboard/gowns/${gownId}/edit`,
+  editBooking: (bookingId: string) => `/dashboard/bookings/${bookingId}/edit`,
+  gownDetails: (gownId: string) => `/dashboard/gowns/${gownId}`,
+  bookingDetails: (bookingId: string) => `/dashboard/bookings/${bookingId}`,
 };
 
 export const apiRoute = {
@@ -29,6 +32,7 @@ export const apiRoute = {
     delete: (id: string) => `/api/bookings/${id}`,
   },
   image: {
-    delete: (publicId: string) => `/api/cloudinary-image?publicId=${publicId}`,
+    delete: (publicId: string, gownId: string) =>
+      `/api/cloudinary-image?publicId=${publicId}&gownId=${gownId}`,
   },
 };

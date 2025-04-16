@@ -1,8 +1,7 @@
+import { revalidateGownPaths, revalidateStaticPaths } from "@/lib/actions";
 import { errorResponse, successResponse } from "@/lib/api/responses";
 import { prisma } from "@/lib/prisma";
-import { route } from "@/lib/routes";
 import { gownSchema } from "@/lib/zod/gown";
-import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
 
 export async function POST(req: NextRequest) {
@@ -24,8 +23,9 @@ export async function POST(req: NextRequest) {
       include: { images: true },
     });
 
-    revalidatePath(route.gowns);
-    revalidatePath(route.gownDetails(gown.id));
+    revalidateStaticPaths()
+    revalidateGownPaths(gown.id)
+
     return successResponse(gown, "Gown has been created successfully.", 201);
   } catch (error) {
     console.error("[CREATE_GOWN_ERROR]: ", error);
