@@ -13,7 +13,7 @@ import {
 import { SidebarNav } from "./SidebarNav";
 import { useState } from "react";
 import { LogoutButton } from "./LogoutButton";
-import { FaAnglesRight } from "react-icons/fa6";
+import { TfiMenuAlt } from "react-icons/tfi";
 
 export const MobileNavBar = () => {
   const [open, setOpen] = useState(false);
@@ -21,11 +21,14 @@ export const MobileNavBar = () => {
   return (
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
-        <Button variant="outline" className="flex md:hidden border-black">
-          <FaAnglesRight />
+        <Button variant="ghost" className="flex md:hidden p-0">
+          <TfiMenuAlt className="size-8" />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="w-[200px] md:hidden">
+      <SheetContent
+        side="left"
+        className="w-[200px] md:hidden bg-slate-900 border-none text-slate-200"
+      >
         <SheetHeader className="hidden">
           <SheetTitle>Navigation</SheetTitle>
           <SheetDescription>Navigation</SheetDescription>

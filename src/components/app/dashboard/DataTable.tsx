@@ -51,16 +51,16 @@ export const DataTable = <TData, TValue>({
     enableSortingRemoval: true,
   });
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 ">
       <div className="flex items-center">
         <Input
           placeholder="Search for..."
           value={globalFilter}
           onChange={(e) => setGlobalFilter(e.target.value)}
-          className="max-w-sm"
+          className="max-w-sm bg-white border-slate-900 rounded-xs shadow-md"
         />
       </div>
-      <div className="rounded-md border ">
+      <div className="rounded-xs bg-white overflow-hidden border-slate-900 border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -68,7 +68,7 @@ export const DataTable = <TData, TValue>({
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
-                    className="text-slate-800 bg-slate-100"
+                    className="bg-slate-900 text-slate-200"
                   >
                     {flexRender(
                       header.column.columnDef.header,
@@ -84,7 +84,7 @@ export const DataTable = <TData, TValue>({
               table.getRowModel().rows.map((row) => (
                 <TableRow key={row.id}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="pl-4">
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext()

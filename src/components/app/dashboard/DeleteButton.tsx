@@ -17,7 +17,7 @@ import { ErrorResponse } from "@/lib/api/types";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ButtonVariantProps } from "@/types/global";
-import { MdOutlineDeleteForever } from "react-icons/md";
+import { MdOutlineDelete } from "react-icons/md";
 import { toast } from "sonner";
 
 type Props = {
@@ -69,7 +69,7 @@ export const DeleteButton = ({
           disabled={loading}
           className={className}
         >
-          <MdOutlineDeleteForever className="size-6" />
+          <MdOutlineDelete className="size-5 text-inherit" />
           Delete
         </Button>
       </AlertDialogTrigger>

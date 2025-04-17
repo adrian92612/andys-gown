@@ -11,11 +11,7 @@ export const BackButton = () => {
     back();
   };
   return (
-    <Button
-      onClick={handleClick}
-      variant="outline"
-      className="text-lg font-semibold border-black"
-    >
+    <Button onClick={handleClick} variant="outline">
       <IoMdArrowRoundBack />
       Back
     </Button>

@@ -15,7 +15,6 @@ const EditGownPage = async ({ params }: Props) => {
   if (!gown) return <div>GOWN NOT FOUND</div>;
   return (
     <div>
-      EditGownPage
       <GownForm gownData={gown} />
     </div>
   );

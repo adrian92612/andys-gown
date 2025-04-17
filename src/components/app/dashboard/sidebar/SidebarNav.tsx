@@ -30,7 +30,8 @@ export const SidebarLink = ({
           variant="ghost"
           className={cn(
             "w-full rounded-none justify-start gap-4 font-semibold text-lg",
-            isActive && "bg-amber-300"
+            "hover:bg-slate-200 hover:text-stone-800",
+            isActive && "bg-slate-200 text-stone-800"
           )}
           onClick={onClick}
         >

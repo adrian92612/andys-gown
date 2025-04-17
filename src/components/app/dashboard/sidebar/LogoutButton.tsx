@@ -36,7 +36,13 @@ export const LogoutButton = ({ sideBarOpen, forMobile }: Props) => {
 
   return (
     <Button variant="destructive" onClick={handleLogout} disabled={loading}>
-      {sideBarOpen || forMobile ? "Logout" : <MdLogout />}
+      {sideBarOpen || forMobile ? (
+        <span className="inline-flex gap-2 items-center">
+          <MdLogout /> Logout
+        </span>
+      ) : (
+        <MdLogout />
+      )}
     </Button>
   );
 };

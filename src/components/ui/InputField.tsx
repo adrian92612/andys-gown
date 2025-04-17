@@ -30,7 +30,11 @@ export const InputField = <TFieldValues extends FieldValues = FieldValues>({
         {props.label && <FormLabel>{props.label}</FormLabel>}
         <FormMessage />
         <FormControl>
-          <Input {...field} {...props} />
+          <Input
+            {...field}
+            {...props}
+            className={cn("bg-white rounded-xs shadow-none", props.className)}
+          />
         </FormControl>
       </FormItem>
     )}
@@ -79,18 +83,21 @@ export const TextareaField = <TFieldValues extends FieldValues = FieldValues>({
   <FormField
     control={form.control}
     name={props.name}
-    render={({ field }) => (
-      <FormItem>
-        {props.label && <FormLabel>{props.label}</FormLabel>}
-        <FormMessage />
-        <FormControl>
-          <Textarea
-            {...field}
-            {...props}
-            className={cn("resize-none", props.textAreaCN)}
-          />
-        </FormControl>
-      </FormItem>
-    )}
+    render={({ field }) => {
+      const { textAreaCN, label, ...rest } = props;
+      return (
+        <FormItem>
+          {props.label && <FormLabel>{label}</FormLabel>}
+          <FormMessage />
+          <FormControl>
+            <Textarea
+              {...field}
+              {...rest}
+              className={cn("resize-none", textAreaCN)}
+            />
+          </FormControl>
+        </FormItem>
+      );
+    }}
   />
 );
