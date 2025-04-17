@@ -29,7 +29,6 @@ const EditBookingPage = async ({ params }: Props) => {
 
   return (
     <div>
-      EditBookingPage
       <BookingForm
         bookingData={bookingData}
         gownList={gownList}

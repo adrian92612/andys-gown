@@ -24,7 +24,7 @@ import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { ErrorResponse } from "@/lib/api/types";
-import { MdOutlineDeleteForever } from "react-icons/md";
+import { TiDeleteOutline } from "react-icons/ti";
 
 type Props = {
   gownData?: GownSchemaType;
@@ -69,10 +69,10 @@ export const GownForm = ({ gownData }: Props) => {
     }
   };
 
-  const deletePhoto = async (publicId: string, gownId:string = '') => {
+  const deletePhoto = async (publicId: string, gownId: string = "") => {
     try {
       setLoading(true);
-      await api.cloudinary.deleteImage(publicId,gownId).delete();
+      await api.cloudinary.deleteImage(publicId, gownId).delete();
       const newImages = images.filter((img) => img.publicId !== publicId);
       form.setValue("images", newImages);
     } catch (error) {
@@ -85,7 +85,10 @@ export const GownForm = ({ gownData }: Props) => {
   return (
     <Form {...form}>
       <fieldset disabled={loading}>
-        <form onSubmit={form.handleSubmit(handleOnSubmit)}>
+        <form
+          onSubmit={form.handleSubmit(handleOnSubmit)}
+          className="max-w-3xl mx-auto space-y-2"
+        >
           <InputField form={form} name="id" readOnly type="hidden" />
           <InputField form={form} name="name" label="Name" />
           <InputField form={form} name="code" label="Code" />
@@ -146,19 +149,20 @@ export const GownForm = ({ gownData }: Props) => {
                     )}
                   </CldUploadWidget>
                 </FormControl>
-                <div className="flex flex-wrap gap-5">
-                  {!!images.length &&
+                <div className="flex flex-wrap gap-5 h-32  bg-white rounded-xs">
+                  {!!images.length ? (
                     images.map((img, i) => (
                       <div key={img.url} className="relative flex h-32 w-24">
                         <Button
                           type="button"
-                          variant="ghost"
-                          size="icon"
-                          onClick={() => deletePhoto(img.publicId,gownData?.id)}
-                          className="absolute p-0 top-0 right-0 size-6 z-10"
+                          variant="destructive"
+                          onClick={() =>
+                            deletePhoto(img.publicId, gownData?.id)
+                          }
+                          className="absolute p-0 top-0 right-0 z-10 size-5"
                           disabled={loading}
                         >
-                          <MdOutlineDeleteForever className="size-6" />
+                          <TiDeleteOutline className="size-5" />
                         </Button>
                         <Image
                           src={img.url}
@@ -167,12 +171,19 @@ export const GownForm = ({ gownData }: Props) => {
                           className="object-cover"
                         />
                       </div>
-                    ))}
+                    ))
+                  ) : (
+                    <div className="w-full grid place-items-center ">
+                      <span>No Images Uploaded</span>
+                    </div>
+                  )}
                 </div>
               </FormItem>
             )}
           />
-          <Button type="submit">{gownData ? "Update" : "Submit"}</Button>
+          <Button type="submit" className="w-full">
+            {gownData ? "Update" : "Submit"}
+          </Button>
         </form>
       </fieldset>
     </Form>

@@ -44,7 +44,7 @@ const DetailsField = ({ gownDetails, dates }: DetailsFieldProps) => {
   const detailsArr = Object.entries(gownDetails);
   const { status, badgeColor } = getGownStatus(dates);
   return (
-    <Card className="px-5 max-w-[500px]">
+    <Card className="px-5 max-w-[500px] shadow-none lg:border-l border-slate-900 h-full rounded-none">
       <CardHeader>
         <CardTitle className="text-lg font-semibold">
           Gown Information
@@ -93,6 +93,7 @@ const ImagesField = ({ urls }: ImagesFieldProps) => {
     const imagesLength = urls.length;
     setCurrentPhoto((prev) => {
       const nextIndex = (prev + n + imagesLength) % imagesLength;
+      setIndex(nextIndex);
       return nextIndex;
     });
   };
@@ -103,7 +104,7 @@ const ImagesField = ({ urls }: ImagesFieldProps) => {
   };
 
   return (
-    <div className="p-5 h-[420px] w-[350px] sm:w-[500px] sm:h-[300px] md:w-[350px] md:h-[430px] xl:w-[500px] xl:h-[300px]  rounded-md mx-auto bg-slate-100">
+    <div className="px-5 py-2 h-[420px] w-[350px] sm:w-[500px] sm:h-[300px] md:w-[350px] md:h-[430px] xl:w-[500px] xl:h-[300px]  mx-auto border-slate-900 lg:border-r rounded-none">
       <PhotoSlider
         images={urls.map((u) => ({
           src: u.url,
@@ -121,17 +122,24 @@ const ImagesField = ({ urls }: ImagesFieldProps) => {
           <Button variant="ghost" onClick={() => adjustPhotoIndex(-1)}>
             <FaBackwardStep />
           </Button>
-          <div
-            className="flex relative aspect-[4/5] w-[200px] hover:cursor-pointer"
-            onClick={() => openSlider(currentPhoto)}
-          >
-            <Image
-              src={urls[currentPhoto].url}
-              alt="Current Photo"
-              fill
-              className="object-cover shadow-md shadow-gray-700"
-              sizes="(max-width: 768px) 100vw, 33vw"
-            />
+          <div>
+            <div
+              className="flex relative aspect-[4/5] w-[200px] hover:cursor-pointer"
+              onClick={() => openSlider(currentPhoto)}
+            >
+              <Image
+                src={urls[currentPhoto].url}
+                alt="Current Photo"
+                fill
+                className="object-cover shadow-md"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            </div>
+            <div className="flex justify-center">
+              <span>
+                {index + 1} of {urls.length}
+              </span>
+            </div>
           </div>
           <Button variant="ghost" onClick={() => adjustPhotoIndex(1)}>
             <FaForwardStep />
@@ -192,11 +200,11 @@ export const GownDetails = ({ gownData }: Props) => {
 
   return (
     <div className="space-y-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        <section>
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 bg-white rounded-xs border-slate-900 border">
+        <section className="border border-b-slate-900  lg:border-none">
           <ImagesField urls={images} />
         </section>
-        <section className="w-full">
+        <section className="w-full border border-t-slate-900 lg:border-none">
           <DetailsField gownDetails={gownDetails} dates={dates} />
         </section>
       </div>

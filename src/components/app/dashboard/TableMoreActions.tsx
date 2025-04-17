@@ -12,8 +12,8 @@ import { useState } from "react";
 import { IoMdMore } from "react-icons/io";
 import { BookingColumnType } from "./bookings/booking-columns";
 import { GownColumnType } from "./gowns/gown-columns";
-import Link from "next/link";
 import { DeleteButton } from "./DeleteButton";
+import { LinkButton } from "./LinkButton";
 
 type Props = {
   data: GownColumnType | BookingColumnType;
@@ -42,22 +42,26 @@ export const TableMoreActions = ({ data }: Props) => {
             item={item}
             variant="ghost"
             closeDropDown={closeDropdown}
-            className="w-full"
+            className="w-full justify-start"
           />
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={editLink(data.id)}>
-            <Button variant="ghost" className="w-full">
-              Edit
-            </Button>
-          </Link>
+          <LinkButton
+            label="Edit"
+            href={editLink(data.id)}
+            icon="edit"
+            variant="ghost"
+            className="w-full justify-start"
+          />
         </DropdownMenuItem>
         <DropdownMenuItem asChild>
-          <Link href={detailsLink(data.id)}>
-            <Button variant="ghost" className="w-full">
-              Details
-            </Button>
-          </Link>
+          <LinkButton
+            label="Details"
+            href={detailsLink(data.id)}
+            icon="view"
+            variant="ghost"
+            className="w-full justify-start"
+          />
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

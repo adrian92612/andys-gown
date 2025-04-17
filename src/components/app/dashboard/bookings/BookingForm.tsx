@@ -111,14 +111,16 @@ export const BookingForm = ({ bookingData, gownList, bookingDates }: Props) => {
 
   const gownId = form.watch("gownId");
   const isGownSelected = !!gownId;
-  console.log(isGownSelected);
   const disabledDates = bookingDates.filter((b) => b.gownId === gownId);
   const bookDates = disabledDates.map((b) => b.eventDate);
 
   return (
     <Form {...form}>
       <fieldset disabled={loading}>
-        <form onSubmit={form.handleSubmit(handleOnSubmit)}>
+        <form
+          onSubmit={form.handleSubmit(handleOnSubmit)}
+          className="max-w-3xl mx-auto space-y-2"
+        >
           <InputField form={form} name="id" readOnly type="hidden" />
           <InputField form={form} name="customerName" label="Customer's Name" />
           <InputField
@@ -328,9 +330,17 @@ export const BookingForm = ({ bookingData, gownList, bookingDates }: Props) => {
             }}
           />
 
-          <TextareaField form={form} name="notes" label="Notes" />
+          <TextareaField
+            form={form}
+            name="notes"
+            label="Notes"
+            placeholder="Additional information here..."
+            textAreaCN="border-slate-900 border rounded-xs"
+          />
 
-          <Button type="submit">{bookingData ? "Update" : "Submit"}</Button>
+          <Button type="submit" className="w-full">
+            {bookingData ? "Update" : "Submit"}
+          </Button>
         </form>
       </fieldset>
     </Form>

@@ -7,7 +7,6 @@ const AddBookingPage = async () => {
 
   return (
     <div>
-      AddBookingPage
       <BookingForm gownList={gownList} bookingDates={bookingDates} />
     </div>
   );

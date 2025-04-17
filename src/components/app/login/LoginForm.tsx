@@ -42,12 +42,17 @@ export const LoginForm = () => {
   };
   return (
     <Form {...form}>
-      <fieldset disabled={loading}>
+      <fieldset disabled={loading} className="w-full max-w-lg">
         <form
           onSubmit={form.handleSubmit(handleOnSubmit)}
-          className="flex flex-col gap-2 w-10/12 max-w-96"
+          className="flex flex-col gap-2"
         >
-          <InputField form={form} name="username" placeholder="Username" />
+          <InputField
+            form={form}
+            name="username"
+            placeholder="Username"
+            className="border-slate-900 border"
+          />
           <InputField
             form={form}
             name="password"
