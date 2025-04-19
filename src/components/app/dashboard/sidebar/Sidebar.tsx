@@ -14,7 +14,7 @@ export const Sidebar = () => {
   return (
     <aside
       className={cn(
-        "relative hidden md:flex flex-col justify-between items-center px-0 py-16 w-[180px] overflow-hidden transition-all  text-stone-300",
+        "relative hidden md:flex flex-col justify-between items-center px-0 py-16 w-[180px] overflow-hidden transition-all  text-dashboard-secondary",
         !open && "w-[50px]"
       )}
     >

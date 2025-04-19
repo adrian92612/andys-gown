@@ -190,7 +190,9 @@ export const BookingForm = ({ bookingData, gownList, bookingDates }: Props) => {
 
                 return (
                   <FormItem className="flex flex-col">
-                    <FormLabel>Select a Gown</FormLabel>
+                    <FormLabel className="font-semibold">
+                      Select a Gown
+                    </FormLabel>
                     <Popover
                       open={isCommandOpen}
                       onOpenChange={setIsCommandOpen}
@@ -202,7 +204,7 @@ export const BookingForm = ({ bookingData, gownList, bookingDates }: Props) => {
                             variant="outline"
                             role="combobox"
                             className={cn(
-                              "w-full justify-between h-10",
+                              "w-full justify-between h-10 bg-white",
                               !field.value && "text-muted-foreground"
                             )}
                           >
@@ -265,7 +267,7 @@ export const BookingForm = ({ bookingData, gownList, bookingDates }: Props) => {
             render={({ field }) => {
               return (
                 <FormItem>
-                  <FormLabel>Event Date</FormLabel>
+                  <FormLabel className="font-semibold">Event Date</FormLabel>
                   <FormMessage />
                   <Popover
                     open={isCalendarOpen}
@@ -278,7 +280,7 @@ export const BookingForm = ({ bookingData, gownList, bookingDates }: Props) => {
                           variant={"outline"}
                           disabled={!isGownSelected}
                           className={cn(
-                            "w-[280px] justify-start h-10 text-left font-normal",
+                            "w-[280px] justify-start h-10 text-left font-normal bg-white",
                             !field.value && "text-muted-foreground"
                           )}
                         >
@@ -335,7 +337,7 @@ export const BookingForm = ({ bookingData, gownList, bookingDates }: Props) => {
             name="notes"
             label="Notes"
             placeholder="Additional information here..."
-            textAreaCN="border-slate-900 border rounded-xs"
+            textAreaCN="border-dashboard-primary border rounded-xs bg-white"
           />
 
           <Button type="submit" className="w-full">

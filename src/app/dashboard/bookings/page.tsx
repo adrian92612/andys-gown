@@ -12,7 +12,7 @@ const BookingsPage = async () => {
   });
 
   return (
-    <div>
+    <div className="space-y-5">
       <div className="flex justify-end items-center">
         <LinkButton label="Add Booking" href={route.newBooking()} icon="add" />
       </div>
