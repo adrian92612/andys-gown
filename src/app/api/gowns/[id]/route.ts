@@ -3,7 +3,7 @@ import { requireAdmin } from "@/lib/auth";
 import cloudinary from "@/lib/cloudinary";
 import { prisma } from "@/lib/prisma";
 import { gownSchema } from "@/lib/zod/gown";
-import { Prisma } from "@prisma/client";
+import { Category, Prisma } from "@prisma/client";
 import { NextRequest } from "next/server";
 
 type Params = {
@@ -77,12 +77,37 @@ export async function PATCH(req: NextRequest) {
     }
 
     const existingGown = await prisma.gown.findUnique({
-      where: { id: gownData.id },
+      where: {
+        id: gownData.id,
+      },
       include: { images: true },
     });
 
     if (!existingGown) {
       return errorResponse("Gown not found.", 404);
+    }
+
+    const conflictingGown = await prisma.gown.findFirst({
+      where: {
+        NOT: {
+          id: gownData.id,
+        },
+        OR: [{ name: gownData.name }, { code: gownData.code }],
+      },
+      select: {
+        id: true,
+        name: true,
+        code: true,
+      },
+    });
+
+    if (conflictingGown) {
+      return errorResponse(
+        `Gown with this ${
+          conflictingGown.name === gownData.name ? "name" : "code"
+        } already exists.`,
+        409
+      );
     }
 
     const oldPublicIds = existingGown.images.map((img) => img.publicId);
@@ -99,6 +124,7 @@ export async function PATCH(req: NextRequest) {
       include: { images: true, bookings: { select: { id: true } } },
       data: {
         ...gownData,
+        category: gownData.category as Category,
         images: {
           deleteMany: {
             publicId: {
@@ -112,6 +138,15 @@ export async function PATCH(req: NextRequest) {
 
     return successResponse(updatedGown, "Gown has been updated.");
   } catch (error) {
+    if (
+      error instanceof Prisma.PrismaClientKnownRequestError &&
+      error.code === "P2002"
+    ) {
+      return errorResponse(
+        "A gown with this name or code already exists.",
+        409
+      );
+    }
     console.error("[GOWN_UPDATING_FAILED]: ", error);
     return errorResponse();
   }

@@ -23,9 +23,11 @@ model User {
 
 model Gown {
   id        String    @id @default(uuid())
-  name      String
-  code      String
+  name      String    @unique
+  code      String    @unique
   color     String
+  size      String
+  category  Category
   price     Int
   images    Image[]
   bookings  Booking[]
@@ -59,4 +61,11 @@ model Image {
   gownId    String
   gown      Gown     @relation(fields: [gownId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
+}
+
+enum Category {
+  longGown
+  cocktailDress
+  filipiniana
+  ballGown
 }

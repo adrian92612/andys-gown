@@ -31,7 +31,7 @@ export const SidebarLink = ({
           className={cn(
             "w-full rounded-none justify-start gap-4 font-semibold text-lg",
             "hover:bg-dashboard-spaceWhite hover:text-dashboard-deepBlueSpace",
-            isActive && "bg-dashboard-spaceWhite text-dashboard-deepBlueSpace"
+            isActive && "bg-dashboard-secondary text-dashboard-primary"
           )}
           onClick={onClick}
         >

@@ -11,6 +11,8 @@ type Props = {
 
 const GownDetailsPage = async ({ params }: Props) => {
   const { id } = await params;
+  if (!id) return notFound();
+
   const gown = await prisma.gown.findUnique({
     where: { id },
     include: {
