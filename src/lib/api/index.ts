@@ -31,7 +31,7 @@ export const api = {
       createDeleteEndpoint(apiRoute.booking.delete(bookingId)),
   },
   cloudinary: {
-    deleteImage: (publicId: string,gownId:string) =>
-      createDeleteEndpoint(apiRoute.image.delete(publicId,gownId)),
+    deleteImage: (publicId: string) =>
+      createDeleteEndpoint(apiRoute.image.delete(publicId)),
   },
 };

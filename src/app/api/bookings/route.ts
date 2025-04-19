@@ -1,4 +1,3 @@
-import { revalidateBookingPaths, revalidateGownPaths, revalidateStaticPaths } from "@/lib/actions";
 import { errorResponse, successResponse } from "@/lib/api/responses";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -38,10 +37,6 @@ export async function POST(req: NextRequest) {
       },
     });
 
-    revalidateStaticPaths()
-    revalidateBookingPaths(booking.id)
-    revalidateGownPaths(existingGown.id)
-    
     return successResponse(booking, "Event has been booked.", 201);
   } catch (error) {
     console.error("[BOOKING_CREATION_FAILED]: ", error);

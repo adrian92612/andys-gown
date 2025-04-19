@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import { BackButton } from "@/components/app/dashboard/BackButton";
 import { MobileNavBar } from "@/components/app/dashboard/sidebar/MobileNavBar";
 import { Sidebar } from "@/components/app/dashboard/sidebar/Sidebar";

@@ -1,4 +1,3 @@
-import { revalidateBookingPaths, revalidateGownPaths, revalidateStaticPaths } from "@/lib/actions";
 import { errorResponse, successResponse } from "@/lib/api/responses";
 import { requireAdmin } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
@@ -20,9 +19,6 @@ export async function DELETE(_: NextRequest, { params }: Params) {
     if (!id) {
       return errorResponse("No ID found.", 400);
     }
-    const booking = await prisma.booking.findUnique({
-      where: {id},select: {gownId:true}
-    })
 
     try {
       await prisma.booking.delete({
@@ -38,8 +34,6 @@ export async function DELETE(_: NextRequest, { params }: Params) {
       throw error;
     }
 
-    revalidateStaticPaths()
-    revalidateGownPaths(booking?.gownId??'')
     return successResponse(null, "Booking has been deleted.");
   } catch (error) {
     console.error("[BOOKING_DELETION_FAILED]: ", error);
@@ -76,10 +70,6 @@ export async function PATCH(req: NextRequest) {
         },
       });
 
-      revalidateStaticPaths()
-      revalidateBookingPaths(updatedBooking.id)
-      revalidateGownPaths(data.gownId)
-      
       return successResponse(updatedBooking, "Booking has been updated.");
     } catch (error) {
       if (
