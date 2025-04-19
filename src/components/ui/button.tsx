@@ -9,15 +9,19 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        default: "bg-slate-900 text-slate-200 hover:bg-slate-900/80",
+        default:
+          "bg-dashboard-primary text-dashboard-secondary hover:bg-dashboard-primary/80",
         destructive:
-          "bg-red-600 text-slate-200 hover:bg-red-600/80 focus-visible:ring-red-900",
-        outline: "border-slate-900 border hover:bg-slate-900/10",
+          "bg-dashboard-danger text-dashboard-secondary hover:bg-dashboard-danger/80 focus-visible:ring-red-900",
+        outline:
+          "border-dashboard-primary border hover:bg-dashboard-primary/10",
+        outlineSecondary:
+          "border-dashboard-secondary text-dashboard-secondary border hover:bg-secondary-primary/10",
         secondary:
-          "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
-        ghost: "hover:bg-slate-200/10",
-        link: "text-primary underline-offset-4 hover:underline",
-        columnHeader: "hover:bg-red-900 justify-start p-0",
+          "bg-dashboard-secondary text-dashboard-primary shadow-xs hover:bg-dashboard-secondary/80",
+        ghost: "hover:bg-dashboard-secondary/10",
+        link: "text-dashboard-primary underline-offset-4 hover:underline",
+        columnHeader: "hover:bg-dashboard-danger justify-start p-0",
       },
       size: {
         default: "h-9 px-4",

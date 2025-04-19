@@ -27,13 +27,18 @@ export const InputField = <TFieldValues extends FieldValues = FieldValues>({
     name={props.name}
     render={({ field }) => (
       <FormItem className="w-full">
-        {props.label && <FormLabel>{props.label}</FormLabel>}
+        {props.label && (
+          <FormLabel className="font-semibold">{props.label}</FormLabel>
+        )}
         <FormMessage />
         <FormControl>
           <Input
             {...field}
             {...props}
-            className={cn("bg-white rounded-xs shadow-none", props.className)}
+            className={cn(
+              "rounded-xs shadow-none border border-dashboard-primary bg-white",
+              props.className
+            )}
           />
         </FormControl>
       </FormItem>
@@ -59,7 +64,9 @@ export const SwitchField = <TFieldValues extends FieldValues = FieldValues>({
     name={props.name}
     render={({ field }) => (
       <FormItem>
-        {props.label && <FormLabel>{props.label}</FormLabel>}
+        {props.label && (
+          <FormLabel className="font-semibold">{props.label}</FormLabel>
+        )}
         <FormMessage />
         <FormControl>
           <Switch checked={field.value} onCheckedChange={field.onChange} />
@@ -87,7 +94,9 @@ export const TextareaField = <TFieldValues extends FieldValues = FieldValues>({
       const { textAreaCN, label, ...rest } = props;
       return (
         <FormItem>
-          {props.label && <FormLabel>{label}</FormLabel>}
+          {props.label && (
+            <FormLabel className="font-semibold">{label}</FormLabel>
+          )}
           <FormMessage />
           <FormControl>
             <Textarea

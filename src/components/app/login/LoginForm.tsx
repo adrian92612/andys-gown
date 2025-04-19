@@ -47,19 +47,14 @@ export const LoginForm = () => {
           onSubmit={form.handleSubmit(handleOnSubmit)}
           className="flex flex-col gap-2"
         >
-          <InputField
-            form={form}
-            name="username"
-            placeholder="Username"
-            className="border-slate-900 border"
-          />
+          <InputField form={form} name="username" placeholder="Username" />
           <InputField
             form={form}
             name="password"
             type="password"
             placeholder="Password"
           />
-          <Button>Login</Button>
+          <Button variant="outlineSecondary">Login</Button>
         </form>
       </fieldset>
     </Form>
