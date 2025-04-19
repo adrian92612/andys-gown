@@ -6,7 +6,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import Image from "next/image";
 import { TableMoreActions } from "../TableMoreActions";
-import { getGownStatus } from "@/lib/utils";
+import { formatCategory, getGownStatus } from "@/lib/utils";
 import { Badge } from "@/components/ui/badge";
 
 export type GownColumnType = Prisma.GownGetPayload<{
@@ -80,7 +80,19 @@ export const gownColumns: ColumnDef<GownColumnType>[] = [
       </Button>
     ),
   },
-
+  {
+    accessorFn: (row) => formatCategory(row.category),
+    id: "category",
+    header: ({ column }) => (
+      <Button
+        variant="columnHeader"
+        size="columnHeader"
+        onClick={() => column.toggleSorting()}
+      >
+        Category <ArrowUpDown className="ml-2 size-4" />
+      </Button>
+    ),
+  },
   {
     accessorKey: "price",
     header: ({ column }) => (

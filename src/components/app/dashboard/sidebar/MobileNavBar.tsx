@@ -27,7 +27,7 @@ export const MobileNavBar = () => {
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="w-[200px] md:hidden bg-slate-900 border-none text-slate-200"
+        className="w-[200px] md:hidden bg-dashboard-primary border-none text-slate-200"
       >
         <SheetHeader className="hidden">
           <SheetTitle>Navigation</SheetTitle>

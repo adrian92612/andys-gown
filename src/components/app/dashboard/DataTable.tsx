@@ -57,19 +57,16 @@ export const DataTable = <TData, TValue>({
           placeholder="Search for..."
           value={globalFilter}
           onChange={(e) => setGlobalFilter(e.target.value)}
-          className="max-w-sm bg-white border-slate-900 rounded-xs shadow-md"
+          className="max-w-sm bg-white border-dashboard-primary rounded-xs shadow-md"
         />
       </div>
-      <div className="rounded-xs bg-white overflow-hidden border-slate-900 border">
+      <div className="rounded-xs bg-white overflow-hidden border-dashboard-primary border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => (
-                  <TableHead
-                    key={header.id}
-                    className="bg-slate-900 text-slate-200"
-                  >
+                  <TableHead key={header.id}>
                     {flexRender(
                       header.column.columnDef.header,
                       header.getContext()

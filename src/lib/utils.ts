@@ -1,4 +1,5 @@
 import { GownStatus } from "@/types/global";
+import { Category } from "@prisma/client";
 import { clsx, type ClassValue } from "clsx";
 import { addDays, isSameDay } from "date-fns";
 import { twMerge } from "tailwind-merge";
@@ -99,3 +100,12 @@ export function getGownStatus(bookings: GetGownStatusProps): {
 
   return { status, badgeColor };
 }
+
+const CATEGORY_LABELS: Record<Category, string> = {
+  longGown: "Long Gown",
+  cocktailDress: "Cocktail Dress",
+  filipiniana: "Filipiniana",
+  ballGown: "Ball Gown",
+};
+
+export const formatCategory = (s: Category) => CATEGORY_LABELS[s];

@@ -2,8 +2,10 @@ import { BookingForm } from "@/components/app/dashboard/bookings/BookingForm";
 import { getBookingDates, getGownListForForm } from "@/lib/actions";
 
 const AddBookingPage = async () => {
-  const gownList = await getGownListForForm();
-  const bookingDates = await getBookingDates();
+  const [gownList, bookingDates] = await Promise.all([
+    getGownListForForm(),
+    getBookingDates(),
+  ]);
 
   return (
     <div>

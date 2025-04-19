@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/form";
 import { InputField } from "@/components/ui/InputField";
 import {
+  formatCategory,
   restrictWholeNumberInput,
   sanitizeWholeNumberOnBlur,
 } from "@/lib/utils";
@@ -25,6 +26,14 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { ErrorResponse } from "@/lib/api/types";
 import { TiDeleteOutline } from "react-icons/ti";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Category } from "@prisma/client";
 
 type Props = {
   gownData?: GownSchemaType;
@@ -37,8 +46,10 @@ export const GownForm = ({ gownData }: Props) => {
     defaultValues: {
       id: gownData?.id ?? undefined,
       name: gownData?.name ?? "",
-      color: gownData?.color ?? "",
       code: gownData?.code ?? "",
+      color: gownData?.color ?? "",
+      size: gownData?.size ?? "",
+      category: gownData?.category ?? undefined,
       price: gownData?.price ?? 800,
       images: gownData?.images ?? [],
     },
@@ -49,6 +60,7 @@ export const GownForm = ({ gownData }: Props) => {
   const images = form.watch("images") ?? [];
 
   const handleOnSubmit = async (values: GownSchemaType) => {
+    console.log(values);
     try {
       setLoading(true);
       const apiCB = values.id
@@ -91,6 +103,35 @@ export const GownForm = ({ gownData }: Props) => {
           <InputField form={form} name="name" label="Name" />
           <InputField form={form} name="code" label="Code" />
           <InputField form={form} name="color" label="Color" />
+          <InputField form={form} name="size" label="Size" />
+
+          <FormField
+            control={form.control}
+            name="category"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Category</FormLabel>
+                <FormMessage />
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger className="bg-white rounded-xs border border-dashboard-primary w-full h-10">
+                      <SelectValue placeholder="Select a category" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {Object.values(Category).map((c, i) => (
+                      <SelectItem key={i} value={c}>
+                        {formatCategory(c)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormItem>
+            )}
+          />
           <InputField
             form={form}
             name="price"
