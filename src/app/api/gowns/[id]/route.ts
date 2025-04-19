@@ -1,16 +1,9 @@
-import {
-  revalidateBookingPaths,
-  revalidateGownPaths,
-  revalidateStaticPaths,
-} from "@/lib/actions";
 import { errorResponse, successResponse } from "@/lib/api/responses";
 import { requireAdmin } from "@/lib/auth";
 import cloudinary from "@/lib/cloudinary";
 import { prisma } from "@/lib/prisma";
-import { route } from "@/lib/routes";
 import { gownSchema } from "@/lib/zod/gown";
 import { Prisma } from "@prisma/client";
-import { revalidatePath } from "next/cache";
 import { NextRequest } from "next/server";
 
 type Params = {
@@ -57,11 +50,6 @@ export async function DELETE(_: NextRequest, { params }: Params) {
         })
       )
     );
-
-    revalidatePath(route.gowns);
-    revalidateStaticPaths();
-    revalidateGownPaths(gown.id);
-    gown.bookings.map((b) => revalidateBookingPaths(b.id));
 
     return successResponse(null, "Gown has been deleted.");
   } catch (error) {
@@ -121,10 +109,6 @@ export async function PATCH(req: NextRequest) {
         },
       },
     });
-
-    revalidateStaticPaths();
-    revalidateGownPaths(updatedGown.id);
-    updatedGown.bookings.map((b) => revalidateBookingPaths(b.id));
 
     return successResponse(updatedGown, "Gown has been updated.");
   } catch (error) {

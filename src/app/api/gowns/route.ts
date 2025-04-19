@@ -1,4 +1,3 @@
-import { revalidateGownPaths, revalidateStaticPaths } from "@/lib/actions";
 import { errorResponse, successResponse } from "@/lib/api/responses";
 import { prisma } from "@/lib/prisma";
 import { gownSchema } from "@/lib/zod/gown";
@@ -22,9 +21,6 @@ export async function POST(req: NextRequest) {
       },
       include: { images: true },
     });
-
-    revalidateStaticPaths()
-    revalidateGownPaths(gown.id)
 
     return successResponse(gown, "Gown has been created successfully.", 201);
   } catch (error) {

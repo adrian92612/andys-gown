@@ -32,7 +32,6 @@ export const apiRoute = {
     delete: (id: string) => `/api/bookings/${id}`,
   },
   image: {
-    delete: (publicId: string, gownId: string) =>
-      `/api/cloudinary-image?publicId=${publicId}&gownId=${gownId}`,
+    delete: (publicId: string) => `/api/cloudinary-image?publicId=${publicId}`,
   },
 };
