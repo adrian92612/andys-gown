@@ -4,7 +4,7 @@ import { SignJWT, jwtVerify } from "jose";
 import { RequestCookies } from "next/dist/compiled/@edge-runtime/cookies";
 import { errorResponse } from "./api/responses";
 
-type TokenPayload = {
+export type TokenPayload = {
   id: string;
   name: string;
 };
