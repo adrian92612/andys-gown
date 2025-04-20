@@ -1,5 +1,6 @@
 import { GownForm } from "@/components/app/dashboard/gowns/GownForm";
 import { prisma } from "@/lib/prisma";
+import { notFound } from "next/navigation";
 
 type Props = {
   params: Promise<{ id: string }>;
@@ -12,7 +13,7 @@ const EditGownPage = async ({ params }: Props) => {
     include: { images: true },
   });
 
-  if (!gown) return <div>GOWN NOT FOUND</div>;
+  if (!gown) return notFound();
   return (
     <div>
       <GownForm gownData={gown} />

@@ -1,6 +1,6 @@
 "use client";
 
-import { capitalizeFirst, cn, getGownStatus } from "@/lib/utils";
+import { cn, formatCategory, formatPrice, getGownStatus } from "@/lib/utils";
 import { Gown, Prisma } from "@prisma/client";
 import { format } from "date-fns";
 import Image from "next/image";
@@ -22,45 +22,35 @@ type DetailsFieldProps = {
   }[];
 };
 
-const EXCLUDED_FIELDS = ["id"];
-const labelMap = {
-  createdAt: "Added On",
-  updatedAt: "Last Updated",
-};
-
-const getLabel = (key: string) => {
-  return (labelMap as Record<string, string>)[key] ?? capitalizeFirst(key);
-};
-
-const getValue = (v: unknown) => {
-  return v instanceof Date
-    ? format(v, "MMMM d, yyyy h:mm a")
-    : v === null
-    ? "-"
-    : String(v);
-};
-
 const DetailsField = ({ gownDetails, dates }: DetailsFieldProps) => {
-  const detailsArr = Object.entries(gownDetails);
   const { status, badgeColor } = getGownStatus(dates);
   return (
-    <Card className="px-5 max-w-[500px] shadow-none lg:border-l border-slate-900 h-full rounded-none">
+    <Card className="px-5 max-w-[500px] shadow-none lg:border-l border-dashboard-primary h-full rounded-none">
       <CardHeader>
-        <CardTitle className="text-lg font-semibold">
-          Gown Information
-        </CardTitle>
+        <CardTitle className="text-lg font-semibold">Information</CardTitle>
       </CardHeader>
       <CardContent>
         <InfoField
           label="Status"
           value={<Badge className={badgeColor}>{status}</Badge>}
         />
-        {!!detailsArr.length &&
-          detailsArr
-            .filter(([k]) => !EXCLUDED_FIELDS.includes(k))
-            .map(([k, v], i) => (
-              <InfoField key={i} label={getLabel(k)} value={getValue(v)} />
-            ))}
+        <InfoField label="Name" value={gownDetails.name} />
+        <InfoField label="Code" value={gownDetails.code} />
+        <InfoField
+          label="Category"
+          value={formatCategory(gownDetails.category)}
+        />
+        <InfoField label="Color" value={gownDetails.color} />
+        <InfoField label="Size" value={gownDetails.size} />
+        <InfoField label="Price" value={formatPrice(gownDetails.price)} />
+        <InfoField
+          label="Added On"
+          value={format(gownDetails.createdAt, "PPP")}
+        />
+        <InfoField
+          label="Updated On"
+          value={format(gownDetails.updatedAt, "PPP")}
+        />
       </CardContent>
     </Card>
   );
@@ -104,7 +94,7 @@ const ImagesField = ({ urls }: ImagesFieldProps) => {
   };
 
   return (
-    <div className="px-5 py-2 h-[420px] w-[350px] sm:w-[500px] sm:h-[300px] md:w-[350px] md:h-[430px] xl:w-[500px] xl:h-[300px]  mx-auto border-slate-900 lg:border-r rounded-none">
+    <div className="px-5 py-2 h-[420px] w-[350px] sm:w-[500px] sm:h-[300px] md:w-[350px] md:h-[430px] xl:w-[500px] xl:h-[300px]  mx-auto border-dashboard-primary lg:border-r rounded-none">
       <PhotoSlider
         images={urls.map((u) => ({
           src: u.url,
@@ -200,11 +190,11 @@ export const GownDetails = ({ gownData }: Props) => {
 
   return (
     <div className="space-y-8">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 bg-white rounded-xs border-slate-900 border">
-        <section className="border border-b-slate-900  lg:border-none">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 bg-white rounded-xs border-dashboard-primary border">
+        <section className="border border-b-dashboard-primaborder-dashboard-primary  lg:border-none">
           <ImagesField urls={images} />
         </section>
-        <section className="w-full border border-t-slate-900 lg:border-none">
+        <section className="w-full border border-t-dashboard-primaborder-dashboard-primary lg:border-none">
           <DetailsField gownDetails={gownDetails} dates={dates} />
         </section>
       </div>

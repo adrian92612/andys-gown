@@ -21,7 +21,7 @@ const buttonVariants = cva(
           "bg-dashboard-secondary text-dashboard-primary shadow-xs hover:bg-dashboard-secondary/80",
         ghost: "hover:bg-dashboard-secondary/10",
         link: "text-dashboard-primary underline-offset-4 hover:underline",
-        columnHeader: "hover:bg-dashboard-danger justify-start p-0",
+        columnHeader: "hover:bg-dashboard-secondary/20 justify-start p-0",
       },
       size: {
         default: "h-9 px-4",

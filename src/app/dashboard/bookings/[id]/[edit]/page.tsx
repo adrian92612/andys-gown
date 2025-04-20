@@ -9,14 +9,17 @@ type Props = {
 
 const EditBookingPage = async ({ params }: Props) => {
   const { id } = await params;
-  const booking = await prisma.booking.findUnique({
-    where: { id },
-    include: {
-      gown: { select: { id: true, name: true } },
-    },
-  });
-  const gownList = await getGownListForForm();
-  const bookingDates = await getBookingDates();
+
+  const [booking, gownList, bookingDates] = await Promise.all([
+    prisma.booking.findUnique({
+      where: { id },
+      include: {
+        gown: { select: { id: true, name: true } },
+      },
+    }),
+    getGownListForForm(),
+    getBookingDates(),
+  ]);
   if (!booking) return notFound();
 
   const { gownId, notes, ...formFields } = booking;
