@@ -1,7 +1,8 @@
 export const route = {
-  home: "/",
+  home: "/home",
   collections: "/collections",
   login: "/login",
+  baseDashboard: "/dashboard",
   dashboard: "/dashboard/overview",
   gowns: "/dashboard/gowns",
   bookings: "/dashboard/bookings",
@@ -14,6 +15,11 @@ export const route = {
   editBooking: (bookingId: string) => `/dashboard/bookings/${bookingId}/edit`,
   gownDetails: (gownId: string) => `/dashboard/gowns/${gownId}`,
   bookingDetails: (bookingId: string) => `/dashboard/bookings/${bookingId}`,
+};
+
+export const homeRoute = {
+  about: `${route.home}/#about`,
+  faqs: `${route.home}/#faq`,
 };
 
 export const apiRoute = {

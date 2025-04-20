@@ -3,10 +3,23 @@
 
 @custom-variant dark (&:is(.dark *));
 
+html {
+  scroll-behavior: smooth;
+}
+
 @theme inline {
   --color-dashboard-primary: var(--charcoal);
   --color-dashboard-secondary: var(--spaceWhite);
   --color-dashboard-danger: var(--auburn);
+
+  --color-site-background: var(--alabasterWhite);
+  --color-site-text: var(--charcoalBlack);
+  --color-site-primary: var(--mutedGold);
+  --color-site-secondary: var(--dustyRose);
+  --color-site-border: var(--cloudGray);
+
+  --font-heading: var(--font-nanum-myeongjo);
+  --font-body: var(--font-nanum-myeongjo);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -48,9 +61,17 @@
 }
 
 :root {
+  /* dashboard */
   --spaceWhite: oklch(0.98 0.005 255);
   --charcoal: oklch(0.2614 0.0301 259.72);
-  --auburn: #a22522;
+  --auburn: oklch(0.4913 0.2197 28.356);
+
+  /* website */
+  --alabasterWhite: oklch(0.98 0 0);
+  --charcoalBlack: oklch(0.2 0 0);
+  --mutedGold: oklch(0.75 0.14 85);
+  --dustyRose: oklch(0.85 0.14 15);
+  --cloudGray: oklch(0.88 0 0);
 
   --radius: 0.625rem;
   --background: oklch(1 0 0);
