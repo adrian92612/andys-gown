@@ -60,7 +60,6 @@ export const GownForm = ({ gownData }: Props) => {
   const images = form.watch("images") ?? [];
 
   const handleOnSubmit = async (values: GownSchemaType) => {
-    console.log(values);
     try {
       setLoading(true);
       const apiCB = values.id

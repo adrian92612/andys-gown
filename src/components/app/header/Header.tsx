@@ -11,7 +11,7 @@ export const Header = () => {
   return (
     <header
       className={cn(
-        "w-full h-16 bg-site-background flex items-center justify-center border-b border-site-border font-heading sticky top-0",
+        "w-full h-14 bg-site-background/95 backdrop-blur-xs flex items-center justify-center border-b border-site-border font-heading sticky top-0 z-10",
         isOnDashboard && "hidden"
       )}
     >

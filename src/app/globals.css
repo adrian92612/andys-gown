@@ -14,6 +14,7 @@ html {
 
   --color-site-background: var(--alabasterWhite);
   --color-site-text: var(--charcoalBlack);
+  --color-site-text-light: var(--softWhite);
   --color-site-primary: var(--mutedGold);
   --color-site-secondary: var(--dustyRose);
   --color-site-border: var(--cloudGray);
@@ -72,6 +73,7 @@ html {
   --mutedGold: oklch(0.75 0.14 85);
   --dustyRose: oklch(0.85 0.14 15);
   --cloudGray: oklch(0.88 0 0);
+  --softWhite: oklch(0.96 0 0);
 
   --radius: 0.625rem;
   --background: oklch(1 0 0);
