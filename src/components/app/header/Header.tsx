@@ -6,7 +6,6 @@ import { useIsOnDashboard } from "@/lib/hooks/useIsOnDashboard";
 
 export const Header = () => {
   const { isOnDashboard } = useIsOnDashboard();
-  console.log(isOnDashboard);
 
   return (
     <header

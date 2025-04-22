@@ -15,6 +15,7 @@ export const route = {
   editBooking: (bookingId: string) => `/dashboard/bookings/${bookingId}/edit`,
   gownDetails: (gownId: string) => `/dashboard/gowns/${gownId}`,
   bookingDetails: (bookingId: string) => `/dashboard/bookings/${bookingId}`,
+  siteGownDetails: (gownId: string) => `/collections/${gownId}`,
 };
 
 export const homeRoute = {

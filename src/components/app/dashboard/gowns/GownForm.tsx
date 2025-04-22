@@ -85,6 +85,8 @@ export const GownForm = ({ gownData }: Props) => {
       setLoading(true);
       await api.cloudinary.deleteImage(publicId).delete();
     } catch (error) {
+      const err = error as ErrorResponse;
+      toast.error(err.error);
       console.error(error);
     } finally {
       setLoading(false);
