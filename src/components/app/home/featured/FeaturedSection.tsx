@@ -47,36 +47,25 @@ export const FeaturedSection = async () => {
             </Link>
           </Button>
         </div>
-        {gowns.map((g, i) => (
-          <div
-            key={g.id}
-            className={cn(
-              "relative group aspect-[4/5] w-full overflow-hidden",
-              i === 1 && "hidden md:block"
-            )}
-          >
-            <Image
-              src={g.images[0].url}
-              alt={g.name}
-              fill
-              className="object-cover transition duration-300 group-hover:scale-105"
-            />
+        {!!gowns.length &&
+          gowns.map((g, i) => (
+            <div
+              key={g.id}
+              className={cn(
+                "relative group aspect-[4/5] w-full overflow-hidden",
+                i === 1 && "hidden md:block"
+              )}
+            >
+              <Image
+                src={g.images[0].url}
+                alt={g.name}
+                fill
+                className="object-cover transition duration-300 group-hover:scale-105"
+              />
 
-            <ImageOverlay id={g.id} />
-
-            {/* <div className="absolute inset-0 bg-site-text/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <Button
-                asChild
-                variant="link"
-                className="p-0 text-2xl text-site-text-light hover:text-site-primary absolute top-10 right-10"
-              >
-                <Link href={route.siteGownDetails(g.id)} target="_blank">
-                  Gown Details <HiArrowLongRight />
-                </Link>
-              </Button>
-            </div> */}
-          </div>
-        ))}
+              <ImageOverlay id={g.id} />
+            </div>
+          ))}
       </div>
     </section>
   );
