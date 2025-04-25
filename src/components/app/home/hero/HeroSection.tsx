@@ -5,7 +5,7 @@ import Link from "next/link";
 
 export const HeroSection = () => {
   return (
-    <section className="relative max-h-[700px] h-full 2xl:max-h-[1000px] w-full">
+    <section className="relative max-h-[700px] h-dvh 2xl:max-h-[1000px] w-full">
       <Image
         src="/images/hero-image.webp"
         alt="hero image of gown"
