@@ -3,21 +3,29 @@ import { Button } from "../ui/button";
 import Link from "next/link";
 
 type Props = {
-  text: string;
+  text: React.ReactNode;
   href: string;
-  icon?: React.ReactNode;
   className?: string;
+  target?: "_blank" | "_self";
 };
 
-export const TextLink = ({ text, href, icon, className }: Props) => {
+export const TextLink = ({
+  text,
+  href,
+  className,
+  target = "_blank",
+}: Props) => {
   return (
     <Button
       asChild
       variant="link"
-      className={cn("p-0 text-inherit text-base h-fit gap-1", className)}
+      className={cn(
+        "p-0 text-inherit text-base h-fit gap-1 hover:text-site-primary",
+        className
+      )}
     >
-      <Link href={href} target="_blank" rel="noopener noreferrer">
-        {text} {icon && icon}
+      <Link href={href} target={target} rel="noopener noreferrer">
+        {text}
       </Link>
     </Button>
   );

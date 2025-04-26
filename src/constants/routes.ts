@@ -22,11 +22,11 @@ export const route = {
 export const homeRoute = [
   {
     href: `${route.home}/#about`,
-    label: "ABOUT",
+    label: "About",
   },
   {
     href: `${route.home}/#how-it-works`,
-    label: "HOW IT WORKS",
+    label: "How It Works",
   },
   {
     href: `${route.home}/#faqs`,
@@ -34,7 +34,7 @@ export const homeRoute = [
   },
   {
     href: `${route.home}/#contact`,
-    label: "CONTACT US",
+    label: "Contact Us",
   },
 ];
 
