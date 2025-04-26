@@ -8,7 +8,7 @@ const AboutText = () => {
         At Andy&apos;s Gown Rental, we believe every moment deserves elegance.
       </h1>
 
-      <div className="sm:w-[430px] md:w-[455px] space-y-5">
+      <div className="sm:w-[430px] md:w-[450px] space-y-5">
         <p>
           Each gown in our collection is handpicked for its detail, silhouette,
           and timeless beauty — made to be worn, remembered, and loved.
@@ -28,20 +28,19 @@ const AboutText = () => {
 
 export const AboutSection = () => {
   return (
-    <section
-      id="about"
-      className=" w-full max-w-3xl grid mx-auto grid-cols-1 sm:grid-cols-2 py-12 gap-5"
-    >
-      <div className="relative order-1 sm:order-none z-[1]">
-        <AboutText />
-      </div>
-      <div className="relative w-full max-w-[380px] mx-auto sm:ml-auto aspect-[4/5]">
-        <Image
-          src={images.aboutImage}
-          alt="about-image"
-          fill
-          className="object-contain"
-        />
+    <section id="about" className="flex flex-col justify-center min-h-[700px]">
+      <div className="w-full max-w-3xl grid mx-auto grid-cols-1 sm:grid-cols-2 gap-5 py-12">
+        <div className="relative order-1 sm:order-none z-[1]">
+          <AboutText />
+        </div>
+        <div className="relative w-full max-w-[380px] mx-auto sm:ml-auto aspect-[4/5]">
+          <Image
+            src={images.aboutImage}
+            alt="about-image"
+            fill
+            className="object-contain"
+          />
+        </div>
       </div>
     </section>
   );

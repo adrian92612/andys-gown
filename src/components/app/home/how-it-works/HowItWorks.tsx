@@ -70,7 +70,7 @@ export const HowItWorks = () => {
   return (
     <section
       id="how-it-works"
-      className="relative py-16 bg-site-text/90 min-h-[450px] flex flex-col justify-center text-site-text-light border-y border-site-border"
+      className="relative py-16 bg-site-text/90 min-h-[700px] flex flex-col justify-center text-site-text-light border-y border-site-border"
     >
       <Image
         src={images.howItWorksBg}
