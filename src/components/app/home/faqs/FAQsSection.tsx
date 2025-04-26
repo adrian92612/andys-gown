@@ -94,9 +94,13 @@ export const FAQsSection = () => {
           </Accordion>
           <div className="flex justify-end">
             <TextLink
-              text="See the full Terms and Conditions here"
+              text={
+                <>
+                  See the full Terms and Conditions here
+                  <MdOutlineArrowRightAlt className="size-5" />
+                </>
+              }
               href={route.termsAndConditions}
-              icon={<MdOutlineArrowRightAlt className="size-5" />}
               className="text-sm sm:text-base"
             />
           </div>
