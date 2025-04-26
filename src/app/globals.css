@@ -8,6 +8,7 @@ html {
 }
 
 @theme inline {
+  --breakpoint-xs: 30rem;
   --color-dashboard-primary: var(--charcoal);
   --color-dashboard-secondary: var(--spaceWhite);
   --color-dashboard-danger: var(--auburn);

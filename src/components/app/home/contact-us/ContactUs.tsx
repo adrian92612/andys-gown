@@ -3,6 +3,7 @@ import { FaFacebookMessenger, FaInstagram } from "react-icons/fa";
 import Image from "next/image";
 import { images } from "@/constants/images"; // optional if you want a background image
 import Link from "next/link";
+import { siteDetails } from "@/constants/site-details";
 
 export const ContactUsSection = () => {
   return (
@@ -65,8 +66,9 @@ export const ContactUsSection = () => {
         <hr className="w-32 border-t-2 border-site-primary/70 my-4" />
         <div className="text-sm leading-relaxed flex flex-col text-site-text-light/70">
           <p>Visit us at:</p>
-          <p>3447 R. Magsaysay Blvd Sampaloc, Manila</p>
-          <p>- Pickup and returns by appointment only -</p>
+          <p>{siteDetails.address}</p>
+          <p>- {siteDetails.notice} -</p>
+          <p>{siteDetails.hours}</p>
         </div>
       </div>
     </section>

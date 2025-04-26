@@ -29,7 +29,7 @@ export const FeaturedSection = async () => {
 
   return (
     <section className="p-4 bg-site-text/95 mt-0.5">
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2 w-full max-w-7xl mx-auto">
+      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-2 w-full max-w-7xl py-10 mx-auto">
         <div className="flex flex-col items-start justify-center h-full px-4 py-10 text-site-text-light">
           <h2 className="text-3xl font-bold mb-2">
             <span className="text-site-primary">Highlights</span> of the Moment
