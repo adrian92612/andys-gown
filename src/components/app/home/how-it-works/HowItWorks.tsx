@@ -1,6 +1,7 @@
 import { TextLink } from "@/components/global/TextLink";
 import { images } from "@/constants/images";
 import { route } from "@/constants/routes";
+import { socialMediaUrls } from "@/constants/social-media";
 import Image from "next/image";
 
 type StepsProps = {
@@ -42,13 +43,13 @@ const steps: StepsProps[] = [
         Send us a DM on{" "}
         <TextLink
           text="Facebook"
-          href="facebook.com"
+          href={socialMediaUrls.facebook}
           className="font-bold underline"
         />{" "}
         or{" "}
         <TextLink
           text="Instagram"
-          href="instagram.com"
+          href={socialMediaUrls.instagram}
           className="font-bold underline"
         />{" "}
         for fittings and reservations.

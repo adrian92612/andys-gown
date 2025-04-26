@@ -32,6 +32,10 @@ export const homeRoute = [
     href: `${route.home}/#faqs`,
     label: "FAQs",
   },
+  {
+    href: `${route.home}/#contact`,
+    label: "CONTACT US",
+  },
 ];
 
 export const apiRoute = {

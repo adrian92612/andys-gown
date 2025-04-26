@@ -16,7 +16,7 @@ export const TextLink = ({ text, href, icon, className }: Props) => {
       variant="link"
       className={cn("p-0 text-inherit text-base h-fit gap-1", className)}
     >
-      <Link href={href} target="_blank">
+      <Link href={href} target="_blank" rel="noopener noreferrer">
         {text} {icon && icon}
       </Link>
     </Button>

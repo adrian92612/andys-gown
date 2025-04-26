@@ -14,7 +14,7 @@ export const HeroSection = () => {
         src={images.heroImage}
         alt="hero image of gown"
         fill
-        className="object-cover grayscale-0"
+        className="object-cover"
       />
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-site-text-light bg-site-text/80">
         <h1 className="text-4xl md:text-6xl font-heading">
@@ -26,7 +26,7 @@ export const HeroSection = () => {
         <Button
           asChild
           variant="outline"
-          className="mt-6 text-base rounded-none text-bold border-site-text-light tracking-wide hover:bg-site-primary hover:border-site-primary transition"
+          className="mt-6 text-base h-12 font-bold rounded-none text-bold border-site-text-light tracking-wide hover:bg-site-primary hover:border-site-primary transition"
         >
           <Link href={route.collections}>Browse Collections</Link>
         </Button>
