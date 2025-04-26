@@ -1,6 +1,6 @@
 "use client";
 
-import { route } from "@/lib/routes";
+import { route } from "@/constants/routes";
 import { useRouter } from "next/navigation";
 
 type Props = {

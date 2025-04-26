@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
-import { route } from "@/lib/routes";
+import { route } from "@/constants/routes";
 import { ErrorResponse } from "@/lib/api/types";
 import { toast } from "sonner";
 

@@ -9,7 +9,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useIsActivePath } from "@/lib/hooks/useIsActivePath";
-import { homeRoute, route } from "@/lib/routes";
+import { homeRoute, route } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useState } from "react";
@@ -34,17 +34,17 @@ export const HomeDialog = () => {
           MAISON
         </Button>
       </DialogTrigger>
-      <DialogContent className="font-heading max-w-[unset] min-w-full h-full rounded-none border-none">
+      <DialogContent className="font-heading max-w-[unset] min-w-full h-full bg-site-background rounded-none border-none">
         <DialogHeader className="h-fit">
           <DialogTitle className="text-center">
-            <Link href={route.home} onClick={closeModal}>
+            <Link href={`${route.home}#welcome`} onClick={closeModal}>
               MAISON
             </Link>
           </DialogTitle>
         </DialogHeader>
         <nav className="flex flex-col gap-10 items-start w-fit mx-auto">
-          {homeRoute &&
-            Object.entries(homeRoute).map(([k, v], i) => (
+          {!!homeRoute.length &&
+            homeRoute.map((r, i) => (
               <Button
                 asChild
                 key={i}
@@ -53,7 +53,7 @@ export const HomeDialog = () => {
                 style={{ textDecorationThickness: "1px" }}
                 className="text-4xl hover:underline underline-offset-4"
               >
-                <Link href={v}>{k.toUpperCase()}</Link>
+                <Link href={r.href}>{r.label}</Link>
               </Button>
             ))}
         </nav>

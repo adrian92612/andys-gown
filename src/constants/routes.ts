@@ -18,10 +18,20 @@ export const route = {
   siteGownDetails: (gownId: string) => `/collections/${gownId}`,
 };
 
-export const homeRoute = {
-  about: `${route.home}/#about`,
-  faqs: `${route.home}/#faq`,
-};
+export const homeRoute = [
+  {
+    href: `${route.home}/#about`,
+    label: "ABOUT",
+  },
+  {
+    href: `${route.home}/#how-it-works`,
+    label: "HOW IT WORKS",
+  },
+  {
+    href: `${route.home}/#faqs`,
+    label: "FAQs",
+  },
+];
 
 export const apiRoute = {
   auth: {

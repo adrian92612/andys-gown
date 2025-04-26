@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname } from "next/navigation";
-import { route } from "../routes";
+import { route } from "../../constants/routes";
 
 export const useIsOnDashboard = () => {
   const pathname = usePathname();

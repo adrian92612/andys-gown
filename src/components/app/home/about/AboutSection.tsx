@@ -1,3 +1,4 @@
+import { images } from "@/constants/images";
 import Image from "next/image";
 
 const AboutText = () => {
@@ -27,13 +28,16 @@ const AboutText = () => {
 
 export const AboutSection = () => {
   return (
-    <section className=" w-full max-w-3xl grid mx-auto grid-cols-1 sm:grid-cols-2 py-12 gap-5">
+    <section
+      id="about"
+      className=" w-full max-w-3xl grid mx-auto grid-cols-1 sm:grid-cols-2 py-12 gap-5"
+    >
       <div className="relative order-1 sm:order-none z-[1]">
         <AboutText />
       </div>
       <div className="relative w-full max-w-[380px] mx-auto sm:ml-auto aspect-[4/5]">
         <Image
-          src="/images/about-image.webp"
+          src={images.aboutImage}
           alt="about-image"
           fill
           className="object-contain"

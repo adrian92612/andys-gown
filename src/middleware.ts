@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { getCurrentUser } from "./lib/auth";
-import { route } from "./lib/routes";
+import { route } from "./constants/routes";
 
 export async function middleware(req: NextRequest) {
   const { pathname } = req.nextUrl;

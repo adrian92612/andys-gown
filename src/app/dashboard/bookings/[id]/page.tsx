@@ -2,7 +2,7 @@ import { BookingDetails } from "@/components/app/dashboard/bookings/BookingDetai
 import { DeleteButton } from "@/components/app/dashboard/DeleteButton";
 import { LinkButton } from "@/components/app/dashboard/LinkButton";
 import { prisma } from "@/lib/prisma";
-import { route } from "@/lib/routes";
+import { route } from "@/constants/routes";
 import { notFound } from "next/navigation";
 
 type Props = {

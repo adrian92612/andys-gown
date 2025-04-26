@@ -1,4 +1,4 @@
-import { route } from "@/lib/routes";
+import { route } from "@/constants/routes";
 import { MdSpaceDashboard } from "react-icons/md";
 import { GiAmpleDress } from "react-icons/gi";
 import { FaBook } from "react-icons/fa6";
