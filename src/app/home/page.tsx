@@ -1,4 +1,5 @@
 import { AboutSection } from "@/components/app/home/about/AboutSection";
+import { ContactUsSection } from "@/components/app/home/contact-us/ContactUs";
 import { FAQsSection } from "@/components/app/home/faqs/FAQsSection";
 import { FeaturedSection } from "@/components/app/home/featured/FeaturedSection";
 import { HeroSection } from "@/components/app/home/hero/HeroSection";
@@ -12,6 +13,7 @@ const HomePage = async () => {
       <AboutSection />
       <HowItWorks />
       <FAQsSection />
+      <ContactUsSection />
     </>
   );
 };
