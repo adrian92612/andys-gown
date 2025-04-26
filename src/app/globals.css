@@ -22,6 +22,7 @@ html {
 
   --font-heading: var(--font-nanum-myeongjo);
   --font-body: var(--font-nanum-myeongjo);
+  --font-logo: var(--font-allura);
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);

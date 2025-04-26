@@ -3,7 +3,7 @@ import "./globals.css";
 import "react-photo-view/dist/react-photo-view.css";
 import { Toaster } from "@/components/ui/sonner";
 import { Header } from "@/components/app/header/Header";
-import { geistMono, geistSans, nanumMyeongjo, poiretOne } from "@/lib/fonts";
+import { allura, nanumMyeongjo } from "@/lib/fonts";
 import { AuthProvider } from "@/lib/providers/AuthProvider";
 import { getCurrentUser } from "@/lib/auth";
 
@@ -22,7 +22,7 @@ export default async function RootLayout({
     <html lang="en">
       <AuthProvider initialUser={user}>
         <body
-          className={`${geistMono.variable} ${geistSans.variable} ${poiretOne.variable} ${nanumMyeongjo.variable} antialiased text-site-text bg-site-background`}
+          className={`${nanumMyeongjo.variable} ${allura.variable} antialiased text-site-text bg-site-background`}
         >
           <Header />
           <main className="font-body">{children}</main>

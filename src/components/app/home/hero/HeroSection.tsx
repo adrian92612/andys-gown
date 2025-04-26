@@ -17,9 +17,12 @@ export const HeroSection = () => {
         className="object-cover"
       />
       <div className="absolute inset-0 flex flex-col items-center justify-center text-center text-site-text-light bg-site-text/80">
-        <h1 className="text-4xl md:text-6xl font-heading">
-          A Gown for Every Story
+        <h1 className="font-logo text-4xl md:text-5xl mb-4">
+          Andy&apos;s Gown
         </h1>
+        <h2 className="text-4xl md:text-6xl font-heading">
+          A Gown for Every Story
+        </h2>
         <p className="mt-4 text-lg">
           Curated gowns for life&apos;s most unforgettable moments.
         </p>
