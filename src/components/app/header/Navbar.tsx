@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { route } from "@/lib/routes";
+import { route } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { HomeDialog } from "./HomeDialog";

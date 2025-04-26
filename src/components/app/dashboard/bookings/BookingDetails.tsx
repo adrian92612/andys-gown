@@ -1,7 +1,7 @@
 import { InfoField } from "@/components/global/InfoField";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { route } from "@/lib/routes";
+import { route } from "@/constants/routes";
 import { formatPrice, getBookingStatus } from "@/lib/utils";
 import { Prisma } from "@prisma/client";
 import { format } from "date-fns";

@@ -1,13 +1,17 @@
 import { Button } from "@/components/ui/button";
-import { route } from "@/lib/routes";
+import { images } from "@/constants/images";
+import { route } from "@/constants/routes";
 import Image from "next/image";
 import Link from "next/link";
 
 export const HeroSection = () => {
   return (
-    <section className="relative max-h-[700px] h-dvh 2xl:max-h-[1000px] w-full">
+    <section
+      id="welcome"
+      className="relative max-h-[700px] h-dvh 2xl:max-h-[1000px] w-full"
+    >
       <Image
-        src="/images/hero-image.webp"
+        src={images.heroImage}
         alt="hero image of gown"
         fill
         className="object-cover grayscale-0"

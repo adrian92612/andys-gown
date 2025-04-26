@@ -1,7 +1,7 @@
 import { LinkButton } from "@/components/app/dashboard/LinkButton";
 import { BookingsTable } from "@/components/app/dashboard/bookings/BookingsTable";
 import { prisma } from "@/lib/prisma";
-import { route } from "@/lib/routes";
+import { route } from "@/constants/routes";
 
 const BookingsPage = async () => {
   const bookings = await prisma.booking.findMany({

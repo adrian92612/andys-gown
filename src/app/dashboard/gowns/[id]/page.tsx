@@ -2,7 +2,7 @@ import { DeleteButton } from "@/components/app/dashboard/DeleteButton";
 import { LinkButton } from "@/components/app/dashboard/LinkButton";
 import { GownDetails } from "@/components/app/dashboard/gowns/GownDetails";
 import { prisma } from "@/lib/prisma";
-import { route } from "@/lib/routes";
+import { route } from "@/constants/routes";
 import { notFound } from "next/navigation";
 
 type Props = {

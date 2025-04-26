@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/prisma";
-import { route } from "@/lib/routes";
+import { route } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 import { Gown } from "@prisma/client";
 import Image from "next/image";

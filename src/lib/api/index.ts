@@ -7,7 +7,7 @@ import {
 } from "./apiClient";
 import { GownSchemaType } from "../zod/gown";
 import { BookingSchemaType } from "../zod/booking";
-import { apiRoute } from "../routes";
+import { apiRoute } from "../../constants/routes";
 
 export const api = {
   auth: {

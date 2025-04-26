@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { api } from "@/lib/api";
 import { ErrorResponse } from "@/lib/api/types";
-import { route } from "@/lib/routes";
+import { route } from "@/constants/routes";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { MdLogout } from "react-icons/md";

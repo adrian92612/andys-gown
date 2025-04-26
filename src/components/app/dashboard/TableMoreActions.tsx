@@ -7,7 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { route } from "@/lib/routes";
+import { route } from "@/constants/routes";
 import { useState } from "react";
 import { IoMdMore } from "react-icons/io";
 import { BookingColumnType } from "./bookings/booking-columns";

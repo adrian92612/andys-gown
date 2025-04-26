@@ -2,7 +2,7 @@ import { DataTable } from "@/components/app/dashboard/DataTable";
 import { LinkButton } from "@/components/app/dashboard/LinkButton";
 import { gownColumns } from "@/components/app/dashboard/gowns/gown-columns";
 import { prisma } from "@/lib/prisma";
-import { route } from "@/lib/routes";
+import { route } from "@/constants/routes";
 
 const GownsPage = async () => {
   const gowns = await prisma.gown.findMany({
