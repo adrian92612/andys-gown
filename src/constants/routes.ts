@@ -1,6 +1,7 @@
 export const route = {
   home: "/home",
   collections: "/collections",
+  termsAndConditions: "terms-and-conditions",
   login: "/login",
   baseDashboard: "/dashboard",
   dashboard: "/dashboard/overview",
