@@ -3,4 +3,5 @@ export const images = {
   aboutImage: "/images/about-image.webp",
   howItWorksBg: "/images/how-it-works-bg.webp",
   contactBg: "/images/contact-bg.webp",
+  logoDark: "/images/logo.webp",
 };

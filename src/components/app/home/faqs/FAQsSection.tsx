@@ -36,8 +36,17 @@ export const faqs: Faqs[] = [
   },
   {
     question: "When can I pick up and return my gown?",
-    answer:
-      "Pickup and return times are strictly between 3:00 PM to 6:00 PM only. You will be notified once your gown is ready for pickup.",
+    answer: (
+      <div className="flex flex-col gap-1">
+        <span>
+          Pickup and return times are strictly between 3:00 PM to 6:00 PM only.
+        </span>
+        <span>You will be notified once your gown is ready for pickup.</span>
+        <span>
+          Pickup arrangements and delivery costs are shouldered by the customer.
+        </span>
+      </div>
+    ),
   },
   {
     question: "Can I alter the gown?",
@@ -61,8 +70,18 @@ export const faqs: Faqs[] = [
   },
   {
     question: "Do you offer refunds?",
-    answer:
-      "No rush refunds. Refunds will only be processed after the gown has been inspected. All refunds are sent via GCash. Shipping/delivery fees are shouldered by the client, and no refunds are issued once the gown has been shipped.",
+    answer: (
+      <div className="flex flex-col gap-1">
+        <span>Refunds are for security deposits only, not cancellations.</span>
+        <span>• Processed after gown inspection; no rush refunds.</span>
+        <span>• GCash only for refunds.</span>
+        <span>• No refunds/gown exchange once the gown is shipped.</span>
+        <span>
+          Late returns incur a ₱150 fee per day for up to 2 days. A delay of 3+
+          days is considered a new rental with full rental fees.
+        </span>
+      </div>
+    ),
   },
 ];
 

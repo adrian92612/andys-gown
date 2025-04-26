@@ -62,7 +62,8 @@ export const Footer = () => {
       </div>
       <hr className="w-32 mx-auto border-t-2 border-site-primary/70" />
       <p className="text-center">
-        © 2025 Andy&apos;s Gown Rental. All rights reserved.
+        © 2025 <span className="font-logo text-3xl">Andy&apos;s Gown</span>{" "}
+        Rental. All rights reserved.
       </p>
     </footer>
   );

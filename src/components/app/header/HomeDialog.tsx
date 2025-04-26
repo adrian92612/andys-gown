@@ -27,7 +27,7 @@ export const HomeDialog = () => {
           variant="ghost"
           style={{ textDecorationThickness: "1px" }}
           className={cn(
-            "p-0 text-xl font-bold",
+            "p-0 text-lg sm:text-xl font-bold",
             isActivePath && "underline underline-offset-4"
           )}
         >
