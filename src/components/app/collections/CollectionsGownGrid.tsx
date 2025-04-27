@@ -11,7 +11,7 @@ import { parseAsInteger, parseAsStringEnum, useQueryState } from "nuqs";
 const PAGE_SIZE = 12;
 
 const categoryEnums = ["All", ...Object.values(Category)] as const;
-type CategoryWithAll = Category | "All";
+export type CategoryWithAll = Category | "All";
 
 type Props = {
   gownList: Prisma.GownGetPayload<{
