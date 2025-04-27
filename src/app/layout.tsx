@@ -6,6 +6,7 @@ import { Header } from "@/components/app/header/Header";
 import { allura, nanumMyeongjo } from "@/lib/fonts";
 import { AuthProvider } from "@/lib/providers/AuthProvider";
 import { getCurrentUser } from "@/lib/auth";
+import { Footer } from "@/components/app/home/footer/Footer";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,10 +23,11 @@ export default async function RootLayout({
     <html lang="en">
       <AuthProvider initialUser={user}>
         <body
-          className={`${nanumMyeongjo.variable} ${allura.variable} antialiased text-site-text bg-site-background`}
+          className={`${nanumMyeongjo.variable} ${allura.variable} antialiased text-site-text bg-site-background flex flex-col min-h-dvh`}
         >
           <Header />
-          <main className="font-body">{children}</main>
+          <main className="font-body grow flex flex-col">{children}</main>
+          <Footer />
           <Toaster position="top-right" richColors />
         </body>
       </AuthProvider>
