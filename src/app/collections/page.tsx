@@ -1,5 +1,7 @@
+import { CollectionsBlock } from "@/components/app/collections/Collections";
+
 const CollectionsPage = () => {
-  return <div>CollectionsPage</div>;
+  return <CollectionsBlock />;
 };
 
 export default CollectionsPage;

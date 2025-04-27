@@ -1,3 +1,5 @@
+"use client";
+
 import { TextLink } from "@/components/global/TextLink";
 import { homeRoute, route } from "@/constants/routes";
 import { socialMediaUrls } from "@/constants/social-media";
@@ -6,10 +8,18 @@ import { CiLocationOn } from "react-icons/ci";
 import { BsExclamationTriangle } from "react-icons/bs";
 import { TbClockHour8 } from "react-icons/tb";
 import { siteDetails } from "@/constants/site-details";
+import { useIsOnDashboard } from "@/lib/hooks/useIsOnDashboard";
+import { cn } from "@/lib/utils";
 
 export const Footer = () => {
+  const { isOnDashboard } = useIsOnDashboard();
   return (
-    <footer className="px-4 sm:px-8 py-12 bg-site-text mt-[2px] text-site-text-light space-y-10">
+    <footer
+      className={cn(
+        "px-4 sm:px-8 py-12 bg-site-text mt-[2px] text-site-text-light space-y-10",
+        isOnDashboard && "hidden"
+      )}
+    >
       <div className="w-full max-w-4xl mx-auto flex flex-col xs:flex-row gap-10 justify-between">
         <div className="flex flex-col items-start">
           <TextLink
