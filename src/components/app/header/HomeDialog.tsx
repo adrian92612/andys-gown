@@ -13,10 +13,12 @@ import { homeRoute, route } from "@/constants/routes";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { useState } from "react";
+import { useAuth } from "@/lib/providers/AuthProvider";
 
 export const HomeDialog = () => {
   const [open, setOpen] = useState<boolean>(false);
   const { isActivePath } = useIsActivePath(route.home);
+  const { user } = useAuth();
 
   const closeModal = () => setOpen(false);
 
@@ -56,6 +58,17 @@ export const HomeDialog = () => {
                 <Link href={r.href}>{r.label}</Link>
               </Button>
             ))}
+          {user && (
+            <Button
+              asChild
+              variant="ghost"
+              onClick={closeModal}
+              style={{ textDecorationThickness: "1px" }}
+              className="text-4xl hover:underline underline-offset-4"
+            >
+              <Link href={route.dashboard}>Dashboard</Link>
+            </Button>
+          )}
         </nav>
       </DialogContent>
     </Dialog>
