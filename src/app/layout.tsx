@@ -7,6 +7,7 @@ import { allura, nanumMyeongjo } from "@/lib/fonts";
 import { AuthProvider } from "@/lib/providers/AuthProvider";
 import { getCurrentUser } from "@/lib/auth";
 import { Footer } from "@/components/app/home/footer/Footer";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -26,7 +27,9 @@ export default async function RootLayout({
           className={`${nanumMyeongjo.variable} ${allura.variable} antialiased text-site-text bg-site-background flex flex-col min-h-dvh`}
         >
           <Header />
-          <main className="font-body grow flex flex-col">{children}</main>
+          <main className="font-body grow flex flex-col">
+            <NuqsAdapter>{children}</NuqsAdapter>
+          </main>
           <Footer />
           <Toaster position="top-right" richColors />
         </body>
