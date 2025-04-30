@@ -1,9 +1,7 @@
-import { Button } from "@/components/ui/button";
-import { FaFacebookMessenger, FaInstagram } from "react-icons/fa";
 import Image from "next/image";
-import { images } from "@/constants/images"; // optional if you want a background image
-import Link from "next/link";
+import { images } from "@/constants/images";
 import { siteDetails } from "@/constants/site-details";
+import { SocialMediaMsgBtn } from "@/components/global/SocialMediaMsgBtn";
 
 export const ContactUsSection = () => {
   return (
@@ -33,36 +31,7 @@ export const ContactUsSection = () => {
           For inquiries, gown fittings, and reservations, send us a direct
           message on Facebook or Instagram.
         </p>
-        <div className="flex justify-center gap-6 flex-wrap">
-          <Button
-            asChild
-            variant="outline"
-            className="text-base font-extrabold h-12 rounded-none border-site-background tracking-wide hover:bg-site-primary hover:border-site-primary transition transform hover:scale-105 hover:shadow-md"
-          >
-            <Link
-              href="https://m.me/yourFacebookPageUsername"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaFacebookMessenger className="mr-2 size-5" />
-              Message on Facebook
-            </Link>
-          </Button>
-          <Button
-            asChild
-            variant="outline"
-            className="text-base font-extrabold h-12 rounded-none border-site-background tracking-wide hover:bg-site-primary hover:border-site-primary transition transform hover:scale-105 hover:shadow-md"
-          >
-            <Link
-              href="https://www.instagram.com/yourInstagramUsername/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaInstagram className="mr-2 size-5" />
-              Message on Instagram
-            </Link>
-          </Button>
-        </div>
+        <SocialMediaMsgBtn />
         <hr className="w-32 border-t-2 border-site-primary/70 my-4" />
         <div className="text-sm leading-relaxed flex flex-col text-site-text-light/70">
           <p>Visit us at:</p>

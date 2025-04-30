@@ -1,11 +1,18 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { route } from "@/constants/routes";
 import { formatPrice } from "@/lib/utils";
 import { Prisma } from "@prisma/client";
 import Image from "next/image";
+import Link from "next/link";
 
 type Props = {
   gown: Prisma.GownGetPayload<{
-    include: { images: { select: { url: true }; take: 1 } };
+    select: {
+      id: true;
+      name: true;
+      price: true;
+      images: { select: { url: true }; take: 1 };
+    };
   }>;
 };
 
@@ -16,18 +23,22 @@ export const GownCard = ({ gown }: Props) => {
         <CardTitle>{gown.name}</CardTitle>
       </CardHeader>
       <CardContent className="p-0">
-        <div className="relative group aspect-[4/5] w-full overflow-hidden hover:cursor-pointer">
-          <Image
-            src={gown.images[0].url}
-            alt={gown.name}
-            fill
-            className="object-cover transition duration-1000 group-hover:scale-110"
-          />
-        </div>
-        <div className="flex items-center justify-between text-sm font-bold p-2">
-          <span className="text-site-text/90  leading-snug ">{gown.name}</span>
-          <span className="text-site-text/70">{formatPrice(gown.price)}</span>
-        </div>
+        <Link href={route.siteGownDetails(gown.id)}>
+          <div className="relative group aspect-[4/5] w-full overflow-hidden hover:cursor-pointer">
+            <Image
+              src={gown.images[0].url}
+              alt={gown.name}
+              fill
+              className="object-cover transition duration-1000 group-hover:scale-110"
+            />
+          </div>
+          <div className="flex items-center justify-between text-sm font-bold p-2">
+            <span className="text-site-text/90  leading-snug ">
+              {gown.name}
+            </span>
+            <span className="text-site-text/70">{formatPrice(gown.price)}</span>
+          </div>
+        </Link>
       </CardContent>
     </Card>
   );

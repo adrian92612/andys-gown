@@ -19,6 +19,7 @@ const badgeVariants = cva(
           "text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
         success:
           "border-transparent bg-green-500 text-primary-foreground [a&]:hover:bg-primary/90",
+        gownSize: "bg-site-secondary border-none px-4 h-5 font-bold text-base",
       },
     },
     defaultVariants: {
