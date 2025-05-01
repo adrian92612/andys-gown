@@ -2,11 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import "react-photo-view/dist/react-photo-view.css";
 import { Toaster } from "@/components/ui/sonner";
-import { Header } from "@/components/app/header/Header";
 import { allura, nanumMyeongjo } from "@/lib/fonts";
-import { AuthProvider } from "@/lib/providers/AuthProvider";
-import { getCurrentUser } from "@/lib/auth";
-import { Footer } from "@/components/app/home/footer/Footer";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 export const metadata: Metadata = {
@@ -19,21 +15,16 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const user = await getCurrentUser();
   return (
     <html lang="en">
-      <AuthProvider initialUser={user}>
-        <body
-          className={`${nanumMyeongjo.variable} ${allura.variable} antialiased text-site-text bg-site-background flex flex-col min-h-dvh`}
-        >
-          <Header />
-          <main className="font-body grow flex flex-col">
-            <NuqsAdapter>{children}</NuqsAdapter>
-          </main>
-          <Footer />
-          <Toaster position="top-right" richColors />
-        </body>
-      </AuthProvider>
+      <body
+        className={`${nanumMyeongjo.variable} ${allura.variable} antialiased text-site-text bg-site-background flex flex-col min-h-dvh`}
+      >
+        <main className="font-body grow flex flex-col">
+          <NuqsAdapter>{children}</NuqsAdapter>
+        </main>
+        <Toaster position="top-right" richColors />
+      </body>
     </html>
   );
 }

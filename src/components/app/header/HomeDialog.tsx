@@ -39,7 +39,11 @@ export const HomeDialog = () => {
       <DialogContent className="font-heading max-w-[unset] min-w-full h-full bg-site-background rounded-none border-none">
         <DialogHeader className="h-fit">
           <DialogTitle className="text-center">
-            <Link href={`${route.home}#welcome`} onClick={closeModal}>
+            <Link
+              href={`${route.home}#welcome`}
+              onClick={closeModal}
+              className="hover:cursor-pointer"
+            >
               MAISON
             </Link>
           </DialogTitle>
