@@ -41,6 +41,7 @@ type Props = {
 
 export const GownForm = ({ gownData }: Props) => {
   const [loading, setLoading] = useState<boolean>(false);
+  const [deleteImgLoading, setDeleteImgLoading] = useState<boolean>(false);
   const form = useForm<GownSchemaType>({
     resolver: zodResolver(gownSchema),
     defaultValues: {
@@ -83,13 +84,17 @@ export const GownForm = ({ gownData }: Props) => {
   const deletePhoto = async (publicId: string) => {
     try {
       setLoading(true);
+      setDeleteImgLoading(true);
       await api.cloudinary.deleteImage(publicId).delete();
+      const newImages = images.filter((img) => img.publicId !== publicId);
+      form.setValue("images", newImages);
     } catch (error) {
       const err = error as ErrorResponse;
       toast.error(err.error);
       console.error(error);
     } finally {
       setLoading(false);
+      setDeleteImgLoading(false);
     }
   };
 
@@ -189,10 +194,15 @@ export const GownForm = ({ gownData }: Props) => {
                     )}
                   </CldUploadWidget>
                 </FormControl>
-                <div className="flex flex-wrap gap-5 h-32  bg-white rounded-xs">
+                <div className="flex flex-wrap gap-5 min-h-32  bg-white rounded-xs">
                   {!!images.length ? (
                     images.map((img, i) => (
                       <div key={img.url} className="relative flex h-32 w-24">
+                        {deleteImgLoading && (
+                          <div className="inset-0 z-10 w-full bg-site-background/80 grid place-items-center">
+                            <span>Deleting...</span>
+                          </div>
+                        )}
                         <Button
                           type="button"
                           variant="destructive"
