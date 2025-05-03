@@ -3,6 +3,20 @@ export const dynamic = "force-dynamic";
 import { BackButton } from "@/components/app/dashboard/BackButton";
 import { MobileNavBar } from "@/components/app/dashboard/sidebar/MobileNavBar";
 import { Sidebar } from "@/components/app/dashboard/sidebar/Sidebar";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    default: "Dashboard | Andy's Gown Rental",
+    template: "%s | Dashboard",
+  },
+  description:
+    "Admin dashboard for managing gowns, bookings, and site content.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
   return (

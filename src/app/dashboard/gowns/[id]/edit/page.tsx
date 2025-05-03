@@ -1,6 +1,34 @@
 import { GownForm } from "@/components/app/dashboard/gowns/GownForm";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const gown = await prisma.gown.findUnique({
+    where: { id: params.id },
+    select: { name: true },
+  });
+
+  if (!gown) {
+    return {
+      title: "Edit Gown",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  return {
+    title: `Edit: ${gown.name}`,
+    description: `Edit details, images, and availability of "${gown.name}".`,
+    robots: {
+      index: false,
+      follow: false,
+    },
+  };
+}
 
 type Props = {
   params: Promise<{ id: string }>;

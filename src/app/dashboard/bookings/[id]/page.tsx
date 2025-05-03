@@ -4,6 +4,34 @@ import { LinkButton } from "@/components/app/dashboard/LinkButton";
 import { prisma } from "@/lib/prisma";
 import { route } from "@/constants/routes";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const booking = await prisma.booking.findUnique({
+    where: { id: params.id },
+    include: { gown: { select: { name: true } } },
+  });
+
+  if (!booking) {
+    return {
+      title: "Booking Not Found",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  return {
+    title: `Booking: ${booking.gown?.name}`,
+    description: `Details for booking of "${booking.gown?.name}".`,
+    robots: {
+      index: false,
+      follow: false,
+    },
+  };
+}
 
 type Props = {
   params: Promise<{ id: string }>;

@@ -4,6 +4,56 @@ import { FAQsSection } from "@/components/app/home/faqs/FAQsSection";
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: { id: string };
+}): Promise<Metadata> {
+  const gown = await prisma.gown.findUnique({
+    where: { id: params.id },
+    select: {
+      name: true,
+      images: {
+        select: { url: true },
+        orderBy: { createdAt: "asc" },
+        take: 1,
+      },
+    },
+  });
+
+  if (!gown) return {};
+
+  return {
+    title: `${gown.name} | Andy's Gown Rental`,
+    description: "Explore this elegant gown for your next event.",
+    openGraph: {
+      title: `${gown.name} | Andy's Gown Rental`,
+      description: "Explore this elegant gown for your next event.",
+      url: `https://andysgownrental.com/gown/${params.id}`,
+      siteName: "Andy’s Gown Rental",
+      images: gown.images.length
+        ? [
+            {
+              url: gown.images[0].url,
+              width: 1200,
+              height: 630,
+              alt: gown.name,
+            },
+          ]
+        : [],
+      type: "article",
+      locale: "en_PH",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${gown.name} | Andy's Gown Rental`,
+      description: "Explore this elegant gown for your next event.",
+      images: gown.images.length ? [gown.images[0].url] : [],
+    },
+  };
+}
 
 type Props = {
   params: Promise<{ id: string }>;

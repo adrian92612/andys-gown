@@ -1,6 +1,17 @@
 import { StatCard } from "@/components/app/dashboard/overview/StatCards";
 import { UpcomingBookingsCard } from "@/components/app/dashboard/overview/UpcomingBookingsCard";
 import { prisma } from "@/lib/prisma";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Overview",
+  description:
+    "View overall statistics and upcoming bookings in the dashboard.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 const OverviewPage = async () => {
   const [totalGowns, totalBookings, upcomingBookings] = await Promise.all([
