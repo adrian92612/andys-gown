@@ -6,13 +6,14 @@ import { route } from "@/constants/routes";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string };
-}): Promise<Metadata> {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
   const gown = await prisma.gown.findUnique({
-    where: { id: params.id },
+    where: { id },
     select: { name: true },
   });
 
@@ -32,10 +33,6 @@ export async function generateMetadata({
     },
   };
 }
-
-type Props = {
-  params: Promise<{ id: string }>;
-};
 
 const GownDetailsPage = async ({ params }: Props) => {
   const { id } = await params;

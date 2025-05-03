@@ -4,13 +4,14 @@ import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string };
-}): Promise<Metadata> {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
   const booking = await prisma.booking.findUnique({
-    where: { id: params.id },
+    where: { id },
     include: {
       gown: { select: { name: true } },
     },
@@ -33,10 +34,6 @@ export async function generateMetadata({
     },
   };
 }
-
-type Props = {
-  params: Promise<{ id: string }>;
-};
 
 const EditBookingPage = async ({ params }: Props) => {
   const { id } = await params;

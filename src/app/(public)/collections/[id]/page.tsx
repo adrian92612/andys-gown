@@ -6,13 +6,14 @@ import { Prisma } from "@prisma/client";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { id: string };
-}): Promise<Metadata> {
+type Props = {
+  params: Promise<{ id: string }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
   const gown = await prisma.gown.findUnique({
-    where: { id: params.id },
+    where: { id },
     select: {
       name: true,
       images: {
@@ -31,8 +32,8 @@ export async function generateMetadata({
     openGraph: {
       title: `${gown.name} | Andy's Gown Rental`,
       description: "Explore this elegant gown for your next event.",
-      url: `https://andysgownrental.com/gown/${params.id}`,
-      siteName: "Andy’s Gown Rental",
+      url: `https://andysgownrental.com/gown/${id}`,
+      siteName: "Andy's Gown Rental",
       images: gown.images.length
         ? [
             {
@@ -54,10 +55,6 @@ export async function generateMetadata({
     },
   };
 }
-
-type Props = {
-  params: Promise<{ id: string }>;
-};
 
 const GownDetailsPage = async ({ params }: Props) => {
   const { id } = await params;
