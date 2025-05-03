@@ -3,6 +3,16 @@ import { LinkButton } from "@/components/app/dashboard/LinkButton";
 import { gownColumns } from "@/components/app/dashboard/gowns/gown-columns";
 import { prisma } from "@/lib/prisma";
 import { route } from "@/constants/routes";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Gowns",
+  description: "Manage all gowns, including availability and booking status.",
+  robots: {
+    index: false,
+    follow: false,
+  },
+};
 
 const GownsPage = async () => {
   const gowns = await prisma.gown.findMany({

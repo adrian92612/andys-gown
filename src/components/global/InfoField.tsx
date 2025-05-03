@@ -16,7 +16,7 @@ export const InfoField = ({
   valueCn,
 }: Props) => {
   return (
-    <div className={cn("flex items-center gap-2", className)}>
+    <div className={cn("flex items-start gap-2", className)}>
       <span className={cn("font-semibold", labelCn)}>{label}:</span>
       <span className={cn(valueCn)}>{value}</span>
     </div>

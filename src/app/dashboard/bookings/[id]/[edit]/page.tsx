@@ -2,10 +2,38 @@ import { BookingForm } from "@/components/app/dashboard/bookings/BookingForm";
 import { getBookingDates, getGownListForForm } from "@/lib/actions";
 import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 type Props = {
   params: Promise<{ id: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const booking = await prisma.booking.findUnique({
+    where: { id },
+    include: {
+      gown: { select: { name: true } },
+    },
+  });
+
+  if (!booking) {
+    return {
+      title: "Edit Booking",
+      description: "Booking not found.",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  return {
+    title: `Edit Booking: ${booking.gown?.name}`,
+    description: `Modify booking details for "${booking.gown?.name}".`,
+    robots: {
+      index: false,
+      follow: false,
+    },
+  };
+}
 
 const EditBookingPage = async ({ params }: Props) => {
   const { id } = await params;

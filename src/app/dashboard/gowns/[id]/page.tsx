@@ -4,10 +4,35 @@ import { GownDetails } from "@/components/app/dashboard/gowns/GownDetails";
 import { prisma } from "@/lib/prisma";
 import { route } from "@/constants/routes";
 import { notFound } from "next/navigation";
+import type { Metadata } from "next";
 
 type Props = {
   params: Promise<{ id: string }>;
 };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { id } = await params;
+  const gown = await prisma.gown.findUnique({
+    where: { id },
+    select: { name: true },
+  });
+
+  if (!gown) {
+    return {
+      title: "Gown Not Found",
+      robots: { index: false, follow: false },
+    };
+  }
+
+  return {
+    title: gown.name,
+    description: `Manage bookings and details for "${gown.name}".`,
+    robots: {
+      index: false,
+      follow: false,
+    },
+  };
+}
 
 const GownDetailsPage = async ({ params }: Props) => {
   const { id } = await params;
